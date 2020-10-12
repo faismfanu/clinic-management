@@ -1,0 +1,176 @@
+{% extends "doctor_navbar.html" %}
+{%block content%}
+{%load static%}
+
+
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb"></nav>
+							</nav>
+							<h2 class="breadcrumb-title">Bookings</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+            <!-- /Breadcrumb -->
+    
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+							
+							<!-- Profile Sidebar -->
+							<div class="profile-sidebar">
+								<div class="widget-profile pro-widget-content">
+									<div class="profile-info-widget">
+										<a href="#" class="booking-doc-img">
+											<img src="https://i2-prod.mirror.co.uk/interactives/article12645227.ece/ALTERNATES/s615/doctor.jpg" alt="User Image">
+										</a>
+										<div class="profile-det-info">
+											<h3>Manu Jhon</h3>
+											
+											<div class="patient-details">
+												<h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dashboard-widget">
+									<nav class="dashboard-menu">
+										<ul>
+											<li >
+												<a href="{% url 'doctor_appointment' %}">
+													<i class="fas fa-calendar-check"></i>
+													<span>Appointments</span>
+												</a>
+											</li>
+											<li class="active">
+												<a href="{% url 'doctor_booking' %}">
+													<i class="fas fa-ticket-alt"></i>
+													<span>Bookings</span>
+												</a>
+											</li>
+											<li>
+												<a href="{% url 'doctor_patient' %}">
+													<i class="fas fa-user"></i>
+													<span>My Patients</span>
+												</a>
+											</li>
+											
+											<li>
+												<a href="{%url 'logout'%}">
+													<i class="fas fa-sign-out-alt"></i>
+													<span>Logout</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- /Profile Sidebar -->
+							
+						</div>
+
+							
+							<div class="row">
+								<div class="col-md-12">
+									<h4 class="mb-4">Bookings</h4>
+									<div class="appointment-tab">
+									
+											<!-- Upcoming Appointment Tab -->
+											<div class="tab-pane show active" id="upcoming-appointments">
+												<div class="card card-table mb-0">
+													<div class="card-body">
+														<div class="table-responsive">
+															<table class="table table-hover table-center mb-0">
+																<thead>
+                                                                    <tr>
+                                                                        <th>Doctor</th>
+                                                                        <th>Appt Date</th>
+                                                                        <th>Appt Time</th>  
+                                                                        <th>Session</th>    
+                                                                        <th>Booking Date</th>
+                                                                        <th>Status</th>
+                                                                        <th></th>
+                                                                    </tr>
+																</thead>
+																<tbody>
+																 <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                
+                                                                <a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>14 Nov 2019</td>
+                                                        <td> <span class="d-block text-info">10.00 AM</span></td>
+                                                        <td>Evening</td>
+                                                        <td>16 Nov 2019</td>
+                                                        <td class="text-right">
+                                                            <div class="table-action">
+                                                                <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                    <i class="fas fa-check"></i> Accept
+                                                                </a>
+                                                                <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                    <i class="fas fa-times"></i> Reject
+                                                                </a>
+                                                                
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+																	
+                                                                    <tr>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="doctor-profile.html">Dr. Deborah Angel <span>Cardiology</span></a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>11 Nov 2019</td>
+                                                                        <td> <span class="d-block text-info">11.00 AM</span></td>
+                                                                        <td>Morning</td>
+                                                                        <td>13 Nov 2019</td>
+                                                                        <td class="text-right">
+																			<div class="table-action">
+																				<a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+																					<i class="fas fa-check"></i> Accept
+																				</a>
+																				<a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+																					<i class="fas fa-times"></i> Reject
+																				</a>
+																			</div>
+																		</td>
+                                                                        <td class="text-right">
+                                                                            <div class="table-action">
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+																</tbody>
+															</table>		
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- /Upcoming Appointment Tab -->
+											
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+            <!-- /Page Content -->
+            
+
+
+{% endblock %}

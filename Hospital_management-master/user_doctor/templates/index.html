@@ -1,0 +1,75 @@
+{% extends "Navbar.html" %}
+{%block content%}
+{%load static%}
+			<!-- Popular Section -->
+			<section class="section section-doctor">
+				<div class="container-fluid">
+				   <div class="row">
+						<div class="col-lg-4">
+							<div class="section-header ">
+								<h2>Book Our Doctor</h2>
+								<p>We are here for you </p>
+							</div>
+							<div class="about-content">
+								<p>The Docctre dental clinic is providing many fecilities for dental problems we are the first clinic which have a wide veraity of dental equipments we use many th=echnichal equipments for smooth functioning of the dental care.</p>
+								<p>We have a dedicated doctors team for various specialities they will provide many major dental operations and surgeries so we are proud wuth our dedicated doctors team</p>					
+							</div>
+						</div>
+						<div class="col-lg-8">
+							<div class="doctor-slider slider">
+								{% for doctor in doctors%}
+								<!-- Doctor Widget -->
+								
+								<div class="profile-widget">
+									<div class="doc-img">
+										<a href="{% url 'doctor_profile' doctor.id %}">
+
+
+											<img class="img-fluid" alt="User Image" src="{{doctor.imageURL}}">
+											
+								
+										</a>
+										<a href="javascript:void(0)" class="fav-btn">
+											<i class="far fa-bookmark"></i>
+										</a>
+									</div>
+									<div class="pro-content">
+										<h3 class="title">
+											DR.{{doctor.user_id.first_name}} {{doctor.user_id.last_name}}
+											<i class="fas fa-check-circle verified"></i>
+										</h3>
+										<p class="speciality">{{doctor.doctor_qualification}} - {{doctor.doctor_services}}</p>
+										<ul class="available-info">
+											<li>
+												<i class="fas fa-map-marker-alt"></i> {{doctor.doctor_city}}
+											</li>
+										</ul>
+										<div class="row row-sm">
+											<div class="col-6">
+												{% if user.is_authenticated and user.is_staff == 1 %}
+												<a href="{%url 'booking' doctor.id %}" class="btn book-btn">Book Now</a>
+												{% else %}
+												<a href="{%url 'doctor_profile' doctor.id %}" class="btn book-btn">Book Now</a>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- /Doctor Widget -->
+								{% endfor %}
+							
+								
+								
+								
+							</div>
+						</div>
+				   </div>
+				</div>
+			</section>
+			<!-- /Popular Section -->
+		   
+	   </div>
+	   <!-- /Main Wrapper -->
+
+{%endblock%}

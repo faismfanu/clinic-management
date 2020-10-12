@@ -1,0 +1,105 @@
+{% extends "adminnavbar.html" %}
+{%block content%}
+{%load static%}
+
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <li class="menu-title">
+                    <span>Main</span>
+                </li>
+
+                <li class="active">
+                    <a href="{% url 'adminpanel'%}"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+                </li>
+
+
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /Sidebar -->
+{% for message in messages %}
+     {{message}}
+{%endfor%}     
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <h3 class="page-title">List of Doctors</h3>
+        <div class="d-flex justify-content-end p-3">
+            <a href="{% url 'adminadddoctor' %}"><button type="button" class="btn btn-info">Add new doctor</button></a>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="datatable table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Doctor Name</th>
+                                        <th>Services</th>
+                                        <th>Qualification</th>
+                                        <th>phone</th>
+                                        <th>Edit / Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for doctor in doctors%}
+                                    <tr>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img
+                                                        class="avatar-img rounded-circle"
+                                                        src="{{doctor.imageURL}} "
+                                                        alt="User Image"></a>
+                                                <a href="profile.html">{{doctor.user_id.first_name}} {{doctor.user_id.last_name}}</a>
+                                            </h2>
+                                        </td>
+                                        <td>{{doctor.doctor_services}}</td>
+
+                                        <td>{{doctor.doctor_qualification}}</td>
+
+                                        <td>{{doctor.doctor_phone}}</td>
+
+                                        <td>
+                                            <div class="status-toggle">
+                                                <a href="{% url 'update_doctor' doctor.id doctor.user_id.id %}"><i
+                                                        class="fas fa-edit"></i></a>
+                                                <form action="{% url 'delete_doctor' doctor.user_id.id%}" method="POST" onsubmit="window.mytest()">
+                                                    {%csrf_token%}
+                                                <input type="submit" value="Delete" STYLE="color: #FFFFFF; font-family: Verdana; font-weight: bold; font-size: 15   px; background-color: red;">
+                                            </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /Page Wrapper -->
+
+
+<script type="text/javascript">
+  window.mytest = function() {var isValid = confirm('Are you sure do you want to delete');
+  if (!isValid) {event.preventDefault(); alert("it won't delete!");}
+  }
+
+</script>
+
+{%endblock%}

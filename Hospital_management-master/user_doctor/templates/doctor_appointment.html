@@ -1,0 +1,267 @@
+{% extends "doctor_navbar.html" %}
+{%block content%}
+{%load static%}
+
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb"></nav>
+							</nav>
+							<h2 class="breadcrumb-title">Appointment</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+							
+							<!-- Profile Sidebar -->
+							<div class="profile-sidebar">
+								<div class="widget-profile pro-widget-content">
+									<div class="profile-info-widget">
+										<a href="#" class="booking-doc-img">
+											<img src="{{doctor.imageURL}}" alt="User Image">
+									
+										</a>
+										<div class="profile-det-info">
+											<h3>{{user.first_name}} {{user.last_name}}</h3>
+											
+											<div class="patient-details">
+												<h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dashboard-widget">
+									<nav class="dashboard-menu">
+										<ul>
+											<li class="active">
+												<a href="{% url 'doctor_appointment' %}">
+													<i class="fas fa-calendar-check"></i>
+													<span>Appointments</span>
+												</a>
+											</li>
+											<li>
+												<a href="{% url 'edit_doctor' doctor.id doctor.user_id.id %}">
+													<i class="fas fa-calendar-check"></i>
+													<span>My Profile</span>
+												</a>
+											</li>
+											<!--
+											<li>
+												<a href="{% url 'doctor_booking' %}">
+													<i class="fas fa-ticket-alt"></i>
+													<span>Bookings</span>
+												</a>
+											</li>
+										-->
+											<li>
+												<a href="{% url 'doctor_patient'  %}">
+													<i class="fas fa-user"></i>
+													<span>My Patients</span>
+												</a>
+											</li>
+											
+											<li>
+												<a href="{%url 'logout'%}">
+													<i class="fas fa-sign-out-alt"></i>
+													<span>Logout</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- /Profile Sidebar -->
+							
+						</div>
+
+							
+							<div class="row">
+								<div class="col-md-12">
+									<h4 class="mb-4">Patient Appoinment</h4>
+									<div class="appointment-tab">
+									
+										<!-- Appointment Tab -->
+										<ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+											<li class="nav-item">
+												<a class="nav-link active" href="#today-appointments" data-toggle="tab">Today {{mydate|date}}</a>
+											</li> 
+											<li class="nav-item">
+												<a class="nav-link " href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#consulted-appointments" data-toggle="tab">Consulted</a>
+											</li>
+										</ul>
+										<!-- /Appointment Tab -->
+						
+										
+										<div class="tab-content">
+										
+											<!-- Upcoming Appointment Tab -->
+											<div class="tab-pane " id="upcoming-appointments">
+												<div class="card card-table mb-0">
+													<div class="card-body">
+														<div class="table-responsive">
+															<table class="table table-hover table-center mb-0">
+																<thead>
+																	<tr>
+																		<th>Patient Name</th>
+																		<th>Appt Date</th>
+																		<th>Time</th>
+																		<th>Booked date</th>
+																		<th>Phone</th>
+																	</tr>
+																</thead>
+																<!---->
+																{% for time in times %}
+																{% if time.date_field != today and time.status == 0 %}
+																<tbody>
+																	<tr>
+																		<td>
+																			<h2 class="table-avatar">
+																				<a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{time.patient_id.imageURL}}" alt="User Image"></a>
+																				<a href="">{{time.patient_id.patient_full_name}}</a>
+									 										</h2>
+																		</td>
+																		<td>{{time.date_field}}</span></td>
+																		<td><span class="d-block text-info">{{time.time_field}}</span></td>
+																		<td>{{time.created_at}}</td>
+																		<td class="text-center">9048419922</td>
+																		<td class="text-right">
+																			<div class="table-action">
+																				<a href="" class="btn btn-sm bg-success-light">
+																					<i class="far fa-eye"></i> Upcoming appointments
+																				</a>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+																{% endif %}
+															    {% endfor %}
+															</table>		
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- /Upcoming Appointment Tab -->
+											<!-- Today Appointment Tab -->
+											<div class="tab-pane show active" id="today-appointments">
+												<div class="card card-table mb-0">
+													<div class="card-body">
+														<div class="table-responsive">
+															<table class="table table-hover table-center mb-0">
+																<thead>
+																	<tr>
+																		<th>Patient Name</th>
+																		<th>Appt Date</th>
+																		<th>Time</th>
+																		<th>Booked date</th>
+																		<th>Phone</th>
+																	</tr>
+																</thead>
+																{% for time in times %}
+																{% if time.date_field == today and time.status == 0 %}
+																<tbody>
+																	<tr>
+																		<td>
+																			<h2 class="table-avatar">
+																				<a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{time.patient_id.imageURL}}" alt="User Image"></a>
+																				<a>{{time.patient_id.patient_full_name}}</a>
+																			</h2>
+																		</td>
+																		<td>{{time.date_field}}</td>
+																		<td><span class="d-block text-info">{{time.time_field}}</span></td>
+																		<td>{{time.created_at}}</td>
+																		<td class="text-center">9048419922</td>
+																		<td class="text-right">
+																			<div class="table-action">
+																				<a href="{% url 'doctor_priscription' time.patient_id.id time.id %}" class="btn btn-sm bg-success-light">
+																					<i class="far fa-eye"></i> Consult the patient
+																				</a>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+																{%endif%}
+																{% endfor %}
+															</table>		
+														</div>	
+													</div>			
+												</div>	
+											</div>
+											<!-- /Today Appointment Tab -->
+											<!-- Consulted Appointment Tab -->
+											<div class="tab-pane " id="consulted-appointments">
+												<div class="card card-table mb-0">
+													<div class="card-body">
+														<div class="table-responsive">
+															<table class="table table-hover table-center mb-0">
+																<thead>
+																	<tr>
+																		<th>Patient Name</th>
+																		<th>Appt Date</th>
+																		<th>Time</th>
+																		<th>Consulted date</th>
+																		<th>Phone</th>
+																		<th>Status</th>
+																		
+																	</tr>
+																</thead>
+																
+																{% for time in times %}
+																{% if time.status == 2 %}
+																<tbody>
+																	<tr>
+																		<td>
+																			<h2 class="table-avatar">
+																				<a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{time.patient_id.imageURL}}" alt="User Image"></a>
+																				<a href="">{{time.patient_id.patient_full_name}}</a>
+									 										</h2>
+																		</td>
+																		<td>{{time.date_field}}</span></td>
+																		<td><span class="d-block text-info">{{time.time_field}}</span></td>
+																		<td>{{time.created_at}}</td>
+																		<td class="text-center">9048419922</td>
+																		<td class="text-right">
+																			<div class="table-action">
+																				<span
+                                                                                  class="badge badge-pill bg-info-light">Consulted Patients<span>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+																{% endif %}
+															    {% endfor %}
+															</table>		
+														</div>
+													</div>
+												</div>
+											</div>
+														
+														
+																	
+											
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+
+{% endblock %}

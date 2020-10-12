@@ -1,0 +1,111 @@
+{% extends "Navbar.html" %}
+{%block content%}
+{%load static%}
+
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="{% url 'index'%}">Home</a></li>
+									
+								</ol>
+							</nav>
+							<h2 class="breadcrumb-title">Booking</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container">
+				
+					<div class="row">
+						<div class="col-12">
+						
+							<div class="card">
+								<div class="card-body">
+									<div class="booking-doc-info">
+                                        <a href="{% url 'doctor_profile' doctor.id %}" class="booking-doc-img">
+											<img src="{{doctor.imageURL}}" alt="User Image">
+										</a>
+										<div class="booking-info">
+											<h2><a href="{% url 'doctor_profile' doctor.id %}">{{doctor.doctor_name}}</a></h2>
+											<p class="text-muted mb-0"><i class="fas fa-hospital"></i>{{doctor.doctor_qualification}} - {{doctor.doctor_services}}</p>
+											<form action="{% url 'booking_save' doctor.id %}" method="POST">
+												{% csrf_token %}	
+											<div class="form-group">
+												<label for="rank" class="cols-sm-2 control-label pt-3">Please Select your Date</label>
+												 <div class="cols-sm-10">
+												  <div class="input-group">
+												   
+												   <input type="date"  id="txtDate" required="Required" class="form-control" name="txtDate" placeholder="Select suitable date" />
+												  </div>
+												</div>
+											  </div>
+											 
+											</div>
+										    
+											
+												<!-- Schedule Content -->
+												  
+					
+								<!-- /Schedule Content -->
+								<div class="form-group pl-5">
+									<label for="rank" class="cols-sm-2 control-label pt-3">Please Select your Time</label>
+									 <div class="cols-sm-10">
+									  <div class="input-group">
+									   
+									    <select class="form-control" name="course" required>
+											<option >	</option>
+											<option aria-required="true" value="10:00-11:00">10:00-11:00</option>
+											<option aria-required="true" value="11:00-11:30">11:00-11:30</option>
+											<option aria-required="true" value="11:30-12:00">11:30-12:00</option>
+											<option aria-required="true" value="12:00-12:30">12:00-12:30</option>
+										</select>		 	
+									  </div>
+									</div>
+								  </div>
+								 
+								</div>
+							
+							<!-- /Schedule Widget -->
+										</div>	
+									</div>
+								</div>
+							</div>
+							{% if user.is_authenticated %}
+								<!-- Submit Section -->
+								<div class="submit-section proceed-btn text-right pr-5">
+									<button class="btn btn-primary btn-block btn-lg login-btn" type="submit"  >Book Your Appointment</button>
+								</div>
+								<!-- /Submit Section -->
+							{% else %}
+								<!-- Submit Section -->
+								<div class="submit-section proceed-btn text-right pr-5">
+									<a href="{% url 'guestlogin'%}" class="btn btn-primary submit-btn">Book Your Appointment</a>
+								</div>
+								<!-- /Submit Section -->
+							{% endif %}
+						
+						</form>
+							
+						</div>
+					</div>
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+
+<script>
+	
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("txtDate")[0].setAttribute('min', today);
+
+</script>
+
+{%endblock%}

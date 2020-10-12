@@ -1,0 +1,167 @@
+{% extends "Navbar.html" %}
+{%block content%}
+{%load static%}
+
+
+
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar">
+	<div class="container-fluid">
+		<div class="row align-items-center">
+			<div class="col-md-12 col-12">
+				<nav aria-label="breadcrumb" class="page-breadcrumb">
+					<ol class="breadcrumb">
+
+					</ol>
+				</nav>
+				<h2 class="breadcrumb-title">Priscriptions</h2>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /Breadcrumb -->
+
+<!-- Page Content -->
+<div class="content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+
+				<!-- Profile Sidebar -->
+				<div class="profile-sidebar">
+					<div class="widget-profile pro-widget-content">
+						<div class="profile-info-widget">
+							<a href="#" class="booking-doc-img">
+								<img src="https://png.pngtree.com/png-vector/20190321/ourmid/pngtree-vector-users-icon-png-image_856952.jpg" alt="User Image">
+
+							</a>
+							<div class="profile-det-info">
+								<h3>{{user.username}}</h3>
+
+								<div class="patient-details">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="dashboard-widget">
+						<nav class="dashboard-menu">
+							<ul>
+								<li class="active">
+                                    <a href="{%url 'user_account' %}">
+                                        <i class="fas fa-columns"></i>
+                                        <span>Appointments</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{%url 'patient_profile'%}">
+                                        <i class="fas fa-user"></i>
+                                        <span>Profile</span>
+                                    </a>
+
+                                <li>
+                                    <a href="{%url 'logout'%}">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- /Profile Sidebar -->
+
+			</div>
+
+			<div class="col-md-7 col-lg-8 col-xl-9">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title mb-0">View your Prescription</h4>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="biller-info">
+									<h4 class="d-block">DR.{{doctor.doctor_name	}}</h4>
+									<span class="d-block text-sm text-muted">Dentist</span>
+									<span class="d-block text-sm text-muted">{{doctor.doctor_phone}}</span>
+									<span class="d-block text-sm text-muted">{{doctor.doctor_Field}}</span>
+								</div>
+							</div>
+							<div class="col-sm-6 text-sm-right">
+								<div class="billing-info">
+									<h4 class="d-block"></h4>
+
+								</div>
+							</div>
+						</div>
+
+						<!-- Add Item -->
+						<div class="add-more-item text-right">
+
+						</div>
+						<!-- /Add Item -->
+						
+							<!-- Prescription Item -->
+							<div class="card card-table">
+								<div class="card-body">
+									<div class="table-responsive">
+
+										<table class="table table-hover table-center">
+											<thead>
+												<tr>
+													<th style="min-width: 200px"> Priscription for {{user.username}}</th>
+
+
+													<th style="min-width: 80px;"></th>
+												</tr>
+											</thead>
+											<tbody>
+												
+												<tr>
+													<td>
+														<!-- <input type="text" name ='textfield'  class="form-control" style="height: 100px;">-->
+														<textarea id='textfield' style="font-size: xx-large;" readonly placeholder="{{prescription.medicine}}" name='textfield' class="form-control"
+															cols="60" rows="8"></textarea>
+													</td>
+												</tr>
+											
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+							</div>
+							<!-- /Prescription Item -->
+
+							<!-- Signature -->
+							<div class="row">
+								<div class="col-md-12 text-right">
+									<div class="signature-wrap">
+
+										<div class="sign-name">
+											<p class="mb-0">( Dr. {{doctor.doctor_name}} )</p>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Signature -->
+
+							
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<!-- /Page Content -->
+
+
+
+
+{%endblock%}

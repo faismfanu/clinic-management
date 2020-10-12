@@ -1,0 +1,170 @@
+{% extends "doctor_navbar.html" %}
+{%block content%}
+{%load static%}
+
+				<!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        
+                                    </ol>
+                                </nav>
+                                <h2 class="breadcrumb-title">Add Prescription</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Breadcrumb -->
+                
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container-fluid">
+    
+                        <div class="row">
+                            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                            
+                                <!-- Profile Widget -->
+                                <div class="card widget-profile pat-widget-profile">
+                                    <div class="card-body">
+                                        <div class="pro-widget-content">
+                                            <div class="profile-info-widget">
+                                                <a href="#" class="booking-doc-img">
+                                                    <img src="https://png.pngtree.com/png-vector/20190321/ourmid/pngtree-vector-users-icon-png-image_856952.jpg" alt="User Image">
+                                                </a>
+                                                <div class="profile-det-info">
+                                                    <h3><a href="patient-profile.html">{{patient.user}}</a></h3>
+                                                    <div class="patient-details">
+                                                        <h5><b>Patient ID :</b> {{patient.id}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                                <!-- /Profile Widget -->
+                                
+                            </div>
+    
+                            <div class="col-md-7 col-lg-8 col-xl-9">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title mb-0">Add Prescription</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="biller-info">
+                                                    <h4 class="d-block">DR.{{user.username}}</h4>
+                                                    <span class="d-block text-sm text-muted">Dentist</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 text-sm-right">
+                                                <div class="billing-info">
+                                                    <h4 class="d-block"></h4>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Add Item -->
+                                        <div class="add-more-item text-right">
+                                           
+                                        </div>
+                                        <!-- /Add Item -->
+                                        <form  action = "{% url 'save_medicine' patient.id times.id%}"  method="POST" >
+                                            {% csrf_token %}
+                                        <!-- Prescription Item -->
+                                        <div class="card card-table">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    
+                                                    <table class="table table-hover table-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="min-width: 200px">Priscription</th>
+                                                                
+                                                                
+                                                                <th style="min-width: 80px;"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                   <!-- <input type="text" name ='textfield'  class="form-control" style="height: 100px;">-->
+                                                                <textarea id='textfield' style="font-size: larger;" name ='textfield' class="form-control" cols="60" rows="8"></textarea>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /Prescription Item -->
+                                        
+                                        <!-- Signature -->
+                                        <div class="row">
+                                            <div class="col-md-12 text-right">
+                                                <div class="signature-wrap">
+                                                   
+                                                    <div class="sign-name">
+                                                        <p class="mb-0">( Dr. {{user.username}} )</p>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /Signature -->
+                                        
+                                        <!-- Submit Section -->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="submit-section">
+                                                    <button type="submit" class="btn btn-primary submit-btn">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /Submit Section -->
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                </div>		
+                <!-- /Page Content -->
+
+
+                <script type="text/javascript">
+                    function validate(frm)
+                    {
+                        var ele = frm.elements['feedurl[]'];
+                        if (! ele.length)
+                        {
+                            alert(ele.value);
+                        }
+                        for(var i=0; i<ele.length; i++)
+                        {
+                            alert(ele[i].value);
+                        }
+                        return true;
+                    }
+                    function add_feed()
+                    {
+                        var div1 = document.createElement('div');
+                        // Get template data
+                        div1.innerHTML = document.getElementById('newlinktpl').innerHTML;
+                        // append to our form, so that template data
+                        //become part of form
+                        document.getElementById('newlink').appendChild(div1);
+                    }
+                    </script>
+                    
+{% endblock %}
