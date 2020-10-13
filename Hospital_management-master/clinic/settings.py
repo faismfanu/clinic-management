@@ -24,9 +24,9 @@ STATIC_DIR = Path.joinpath(BASE_DIR, "static")
 SECRET_KEY = 'c#*on&#stbg6y%2-#_b)r28nk4=(m1!wdotzu7o97bh2od)8c2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
