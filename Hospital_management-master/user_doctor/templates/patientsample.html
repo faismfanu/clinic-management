@@ -30,13 +30,13 @@
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+											<img src="{{doctor.imageURL}}" alt="User Image">
 										</a>
 										<div class="profile-det-info">
-											<h3>Dr. Darren Elder</h3>
+											<h3>Dr. {{doctor.user_id.first_name}} {{doctor.user_id.last_name}}</h3>
 											
 											<div class="patient-details">
-												<h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+												<h5 class="mb-0">{{doctor_q.doctor_degree}} - {{doctor.doctor_Field}}</h5>
 											</div>
 										</div>
 									</div>
@@ -51,14 +51,14 @@
 												</a>
                                             </li>
                                             
-											<li class="active">
-												<a href="{% url 'doctor_patient' %}">
-													<i class="fas fa-user"></i>
-													<span>My Patients</span>
+											<li>
+												<a href="{% url 'edit_doctor' doctor.id doctor.user_id.id %}">
+													<i class="fas fa-user-edit"></i>
+													<span>My Profile</span>
 												</a>
 											</li>
-                                            <li>
-												<a href="{% url 'doctor_patient'  %}">
+                                            <li class="active">
+												<a href="{% url 'patientsample'  %}">
 													<i class="fas fa-user"></i>
 													<span>My Patients</span>
 												</a>
@@ -79,38 +79,39 @@
 						<div class="col-md-7 col-lg-8 col-xl-9">
 						
 							<div class="row row-grid">
-                                {% for patients in patient %}
+								{% for patients in doctor_patient %}
 								<div class="col-md-6 col-lg-4 col-xl-3">
 									<div class="card widget-profile pat-widget-profile">
 										<div class="card-body">
 											<div class="pro-widget-content">
 												<div class="profile-info-widget">
-													<a href="patient-profile.html" class="booking-doc-img">
-														<img src="assets/img/patients/patient.jpg" alt="User Image">
+													<a href="{%url 'patient_profile_sample' patients.patient.user.id patients.patient.id doctor.id %}" class="booking-doc-img">
+														<img src="{{patients.patient.imageURL}}" alt="User Image">
 													</a>
 													<div class="profile-det-info">
-														<h3><a href="patient-profile.html">Richard Wilson</a></h3>
+														<h3><a href="">{{patients.patient.patient_full_name}}</a></h3>
 														
 														<div class="patient-details">
-															<h5><b>Patient ID :</b> P0016</h5>
-															<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Alabama, USA</h5>
+															<h5><b>Patient ID :</b> {{patients.patient.id}}</h5>
+															<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{patients.patient.patient_city}}, {{patients.patient.patient_state}}</h5>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="patient-info">
 												<ul>
-													<li>Phone <span>+1 952 001 8563</span></li>
-													<li>Age <span>38 Years, Male</span></li>
-													<li>Blood Group <span>AB+</span></li>
+													<li>Phone <span>{{patients.patient.patient_mobile}}</span></li>
+													<li>DOB <span>{{patients.patient.patient_dob}}</span></li>
+													<li>Blood Group <span>{{patients.patient.patient_blood}}</span></li>
 												</ul>
 											</div>
 										</div>
 									</div>
-                                </div>
+								</div>
+							
                                 {% endfor %}
 								
-								1
+							
 								
 							</div>
 

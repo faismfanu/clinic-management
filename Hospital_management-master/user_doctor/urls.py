@@ -38,7 +38,11 @@ urlpatterns = [
     path('doctorpatients',views.doctor_patients,name="doctor_patient"),
     path('doctorprofile/<int:id>',views.doctor_profile,name="doctor_profile"),
     path('doctor_patient_profile/<int:id>',views.doctor_patient_profile,name="doctor_patient_profile"),
+    path('patient_profile_sample/<int:id>/<int:pat_id>/<int:doc_id>',views.patient_profile_sample,name="patient_profile_sample"),
     path('patientsample',views.patientsample,name="patientsample"),
+    path('block_user/<int:pat_id>/<int:doc_id>',views.block_user,name='block_user'),
+    path('unblock_user/<int:id>/<int:pat_id>/<int:doc_id>',views.unblock_user,name='unblock_user'),
+
 
 
     
@@ -51,8 +55,9 @@ urlpatterns = [
     path('adminpanel',views.adminpanel,name='adminpanel'),
     path('adminadddoctor',views.admin_add_doctor,name='adminadddoctor'),
     path('update_doctor/<int:id>/<int:user_id>',views.update_doctor,name='update_doctor'),
-    path('delete_doctor/<int:id>',views.delete_doctor,name='delete_doctor'),
+    path('delete_doctor/<int:id>/<int:user_id>',views.delete_doctor,name='delete_doctor'),
     path('sample',views.sample,name='sample'),
+    path('addreci/',views.addmove)
     
 
 ]

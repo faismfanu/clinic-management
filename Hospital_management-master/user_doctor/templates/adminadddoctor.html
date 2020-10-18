@@ -86,20 +86,24 @@
 
 		.options label,
 		.options input {
-			width: 4em;
+			
+			width: 10em;
 			padding: 0.5em 1em;
 		}
 
 		.btn {
-			background: white;
-			color: black;
-			border: 1px solid black;
+			
 			padding: 0.5em 1em;
 			text-decoration: none;
 			margin: 0.8em 0.3em;
 			display: inline-block;
 			cursor: pointer;
+            color: #fff;
+            box-shadow: 0 0 40px 40px #0bd2ff inset, 0 0 0 0 #4cbf12;
+            -webkit-transition: all 150ms ease-in-out;
+            transition: all 150ms ease-in-out;
 		}
+		
 
 		.hide {
 			display: none;
@@ -234,54 +238,48 @@
 										<div class="row form-row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<div class="change-avatar">
-														<div class="profile-img">
+													<div class="">
+														<div class="profile-img d-flex p-2 bd-highlight">
+															<!-- leftbox -->
+														<div class="box-2">
+															<div class="result" ></div>
 														</div>
-								
+														<!--rightbox-->
+														<div class="box-2 img-result hide">
+															<!-- result of crop -->
+															<img id="cropped" class="cropped" src="" alt="">
+														</div>
+														</div>
+														<input id="imageBaseData" class="hidden" name="image64data" type="hidden" required = True type="text">
+														<div class="upload-img">
+															<div class="change-photo-btn">
+																<span><i class="fa fa-upload"></i> Upload Photo</span>
+																<input type="file" class='upload' required = True id="file-input">
 															</div>
-															<input id="imageBaseData" class="hidden" name="image64data" type="hidden"  type="text">
-
-															<main class="page">
-			
-																<!-- input file -->
-																<div class="box">
-																	<input type="file"  id="file-input">
-																</div>
-																<!-- leftbox -->
-																<div class="box-2">
-																	<div class="result" ></div>
-																</div>
-																<!--rightbox-->
-																<div class="box-2 img-result hide">
-																	<!-- result of crop -->
-																	<img id="cropped" class="cropped" src="" alt="">
-																</div>
-																<!-- input file -->
-																<div class="box">
-																	<div class="options hide">
-																		<label> Width</label>
-																		<input type="number" name="myfile"
-																			class="img-w" value="300" min="100"
-																			max="1200" />
-																	</div>
-																	<!-- save btn -->
-																	<button class="btn save hide">Confirm</button>
-																	<!-- download btn -->
-																	<a href="" id="" class="btn hidden"></a>
-																	<button id="load" class="  btn btn primary"
-																		type="button">Upload</button>
-																</div>
-															</main>
-															<small class="form-text text-muted"></small>
+															
 														</div>
+														<!-- input file -->
+														<div class="box">
+															<div class="options hide">
+																<!-- <label> Width</label> -->
+																<input type="hidden"  name="myfile"
+																	class="img-w " value="300" min="100"
+																	max="1200" />
+															</div>
 													</div>
 												</div>
+												<!-- save btn -->
+												<button id="load" type="button" aria-required="true" class="btn save hide ">Confirm</button>
+												<!-- download btn -->
 											</div>
+										</div>
+
+
 
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Username <span class="text-danger">*</span></label>
-													<input name="doctor_user_name" type="text" class="form-control"
+													<input name="doctor_user_name" id="dl" type="text" class="form-control"
 														required>
 												</div>
 											</div>
@@ -407,20 +405,8 @@
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
 															<label>Degree</label>
-															<input name="degree" type="text" class="form-control"
+															<input name="degree" id="aas" type="text" class="form-control"
 																required>
-														</div>
-													</div>
-													<div class="col-12 col-md-6 col-lg-4">
-														<div class="form-group">
-															<label>College/Institute</label>
-															<input type="text" name="college" class="form-control">
-														</div>
-													</div>
-													<div class="col-12 col-md-6 col-lg-4">
-														<div class="form-group">
-															<label>Year of Completion</label>
-															<input type="text" name="year" class="form-control">
 														</div>
 													</div>
 												</div>
@@ -439,9 +425,9 @@
 
 
 							<div class="submit-section submit-btn-bottom">
-								<button type="submit" class="btn btn-primary submit-btn">Add Doctor</button>
+								<button type="submit" id="nhy"  class="btn btn-primary submit-btn">Add Doctor</button>
 							</div>
-
+							
 						</div>
 					</div>
 
@@ -451,11 +437,12 @@
 			</form>
 			<!-- /Page Content -->
 
-
+			<button type="button" id="sbm" class="btn btn-primary">xbdfvx</button>
 		</div>
 		<!-- /Main Wrapper -->
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 		<script>
 			// vars
@@ -571,6 +558,8 @@
 				})
 			});
 		</script>
+		
+
 		<!-- jQuery -->
 		<script src="{% static 'js/jquery.min.js' %}"></script>
 

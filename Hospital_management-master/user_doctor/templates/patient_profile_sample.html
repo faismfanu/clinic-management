@@ -8,9 +8,9 @@
         <div class="row align-items-center">
             <div class="col-md-12 col-12">
                 <nav aria-label="breadcrumb" class="page-breadcrumb">
-                    <ol class="breadcrumb justify-content-end">
-                       
-                    </ol>
+                    <ol class="breadcrumb ">
+                        <li class="breadcrumb-item"><a href="{%url 'doctor_appointment'%}">My account</a></li>
+                        
                 </nav>
                 <h2 class="breadcrumb-title">My Patient </h2>
             </div>
@@ -31,27 +31,43 @@
                     <div class="widget-profile pro-widget-content">
                         <div class="profile-info-widget">
                             <a href="#" class="booking-doc-img">
-                                <img src="https://png.pngtree.com/png-vector/20190321/ourmid/pngtree-vector-users-icon-png-image_856952.jpg"
+                                <img src="{{patient.imageURL}}"
                                     alt="User Image">
                             </a>
                             <div class="profile-det-info">
-                                <h3>{{user.username}}</h3>
+                                <h3>{{patient.patient_full_name}}</h3>
                                 <div class="patient-details">
-                                    <h5 class="mb-0"><i class="fa fa-envelope"></i> {{user.email }}</h5>
+                                    <h5 class="mb-0"><i class="fa fa-envelope"></i> {{patient.user.email}}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
-                 
-
+                    <div class="patient-info">
+                        <ul>
+                            <li>Phone <span>{{patient.patient_mobile}}</span></li>
+                            <li>DOB <span>{{patient.patient_dob}}</span></li>
+                            <li>Blood Group <span>{{patient.patient_blood}}</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <!-- / Profile Sidebar -->
+          
 
             <div class="col-md-7 col-lg-8 col-xl-9">
+                {% if block_user %}
+                <div class="d-flex justify-content-end p-3">
+                    <a href="{%url 'unblock_user' block_user.id patient.id doctor.id%}"><button type="button" class="btn btn-success">Unblock the user</button></a>
+                </div>
+                {%else%}
+                <div class="d-flex justify-content-end p-3">
+                    <a href="{% url 'block_user' patient.id doctor.id  %}"><button type="button" class="btn btn-danger">Block the user</button></a>
+                </div>
+                {% endif %}
                 <div class="card">
                     <div class="card-body pt-0">
 
+              
                         <!-- Tab Menu -->
                         <nav class="user-tabs mb-4">
                             <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
@@ -70,10 +86,11 @@
                             </ul>
                         </nav>
                         <!-- /Tab Menu -->
+                       
 
                         <!-- Tab Content -->
                         <div class="tab-content pt-0">
-
+                           
 
 
                             <!-- My requests -->
@@ -147,7 +164,7 @@
                                                         <td>
                                                             <h2 class="table-avatar">
                                                                 <a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{time.doctor.imageURL}}" alt="User Image"></a>
-                                                                <a href="">{{time.doctor.doctor_name}}
+                                                                <a href="">{{time.doctor.doctor_first_name}}
                                                                     <span>Dental</span></a>
                                                             </h2>
                                                         </td>
@@ -218,7 +235,7 @@
                                                         <td>
                                                             <h2 class="table-avatar">
                                                                 <a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{time.doctor.imageURL}}" alt="User Image"></a>
-                                                                <a href="doctor-profile.html">{{time.doctor.doctor_name}}
+                                                                <a href="doctor-profile.html">{{time.doctor.doctor_first_name}}
                                                                     <span>Dental</span></a>
                                                             </h2>
                                                         </td>
@@ -243,7 +260,7 @@
 
                         </div>
                         <!-- Tab Content -->
-
+       
                     </div>
                 </div>
             </div>
@@ -266,4 +283,5 @@
 
 </script>
 
-{%endblock%}
+            
+{% endblock %}

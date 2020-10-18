@@ -4,6 +4,59 @@
 {%load static%}
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css">
+<style>
+    .page {
+        margin: 1em auto;
+        max-width: 768px;
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        height: 100%;
+    }
+
+    .box {
+        padding: 0.5em;
+        width: 100%;
+        margin: 0.5em;
+    }
+
+    .box-2 {
+        padding: 0.5em;
+        width: calc(100%/2 - 1em);
+    }
+
+    .options label,
+    .options input {
+        
+        width: 10em;
+        padding: 0.5em 1em;
+    }
+
+    .btn {
+        
+        padding: 0.5em 1em;
+        text-decoration: none;
+        margin: 0.8em 0.3em;
+        display: inline-block;
+        cursor: pointer;
+        color: #fff;
+        box-shadow: 0 0 40px 40px #4cbf12 inset, 0 0 0 0 #4cbf12;
+        -webkit-transition: all 150ms ease-in-out;
+        transition: all 150ms ease-in-out;
+    }
+    
+
+    .hide {
+        display: none;
+    }
+
+    img {
+        max-width: 100%;
+        
+    }
+</style>
+
 
 <!--Breadcrumb-->
 <div class="breadcrumb-bar">
@@ -57,7 +110,7 @@
                                 </li>
                                 <li class="active">
                                     <a href="">
-                                        <i class="fas fa-calendar-check"></i>
+                                        <i class="fas fa-user-edit"></i>
                                         <span>My Profile</span>
                                     </a>
                                 </li>
@@ -70,7 +123,7 @@
                                 </li>
                             -->
                                 <li>
-                                    <a href="{% url 'doctor_patient' %}">
+                                    <a href="{% url 'patientsample' %}">
                                         <i class="fas fa-user"></i>
                                         <span>My Patients</span>
                                     </a>
@@ -98,23 +151,48 @@
                                         <form action="" method="POST" enctype ="multipart/form-data">
                                         {% csrf_token %}
                                         <div class="row form-row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="change-avatar">
-                                                        <div class="profile-img">
-                                                            <img id="blah" src="{{doctors.imageURL}}" alt="your image" />
-                                                        </div>
-                                                        <div class="upload-img">
-                                                            <div class="change-photo-btn">
-                                                                <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                                <input name ="myfile" type="file" value="{{doctors.doctor_image}}"  class="upload" onchange="readURL(this);" />
-                                                                
-                                                            </div>
-                                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<div class="">
+														<div class="profile-img d-flex p-2 bd-highlight">
+                                                            <img id="blah" src="{{doctors.imageURL}}"
+                                                            alt="your image" style="width:100px;height:100px;"/>
+															<!-- leftbox -->
+														<div class="box-2">
+															<div class="result" ></div>
+														</div>
+														<!--rightbox-->
+														<div class="box-2 img-result hide">
+															<!-- result of crop -->
+															<img id="cropped" class="cropped" src="" alt="">
+														</div>
+														</div>
+														<input id="imageBaseData" class="hidden" name="image64data" type="hidden" required = True type="text">
+														<div class="upload-img">
+															<div class="change-photo-btn">
+																<span><i class="fa fa-upload"></i> Upload Photo</span>
+																<input type="file" class='upload' required = True id="file-input">
+															</div>
+															
+														</div>
+														
+														<!-- input file -->
+														<div class="box">
+															<div class="options hide">
+																<!-- <label> Width</label> -->
+																<input type="hidden"  name="myfile"
+																	class="img-w " value="300" min="100"
+																	max="1200" />
+															</div>
+													</div>
+												</div>
+												<!-- save btn -->
+												<button id="load" type="button" aria-required="true" class="btn save hide ">Confirm</button>
+												<!-- download btn -->
+											</div>
+										</div>
+
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>First name <span class="text-danger">*</span></label>
@@ -263,6 +341,83 @@
            }
            </script>
          
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
 
+         <script>
+             // vars
+             let result = document.querySelector('.result'),
+                 img_result = document.querySelector('.img-result'),
+                 img_w = document.querySelector('.img-w'),
+                 img_h = document.querySelector('.img-h'),
+                 options = document.querySelector('.options'),
+                 save = document.querySelector('.save'),
+                 cropped = document.querySelector('.cropped'),
+                 dwn = document.querySelector('.download'),
+                 upload = document.querySelector('#file-input'),
+                 cropper = '';
+ 
+             // on change show image with crop options
+             upload.addEventListener('change', (e) => {
+                 if (e.target.files.length) {
+                     // start file reader
+                     const reader = new FileReader();
+                     reader.onload = (e) => {
+                         if (e.target.result) {
+                             // create new image
+                             let img = document.createElement('img');
+                             img.id = 'image';
+                             img.src = e.target.result
+                             // clean result before
+                             result.innerHTML = '';
+                             // append new image
+                             result.appendChild(img);
+                             // show save btn and options
+                             save.classList.remove('hide');
+                             options.classList.remove('hide');
+                             // init cropper
+                             cropper = new Cropper(img);
+                         }
+                     };
+                     reader.readAsDataURL(e.target.files[0]);
+                 }
+             });
+ 
+             // save on click
+             save.addEventListener('click', (e) => {
+                 e.preventDefault();
+                 // get result to data uri
+                 let imgSrc = cropper.getCroppedCanvas({
+                     width: img_w.value // input value
+                 }).toDataURL();
+                 // remove hide class of img
+                 cropped.classList.remove('hide');
+                 img_result.classList.remove('hide');
+                 // show image cropped
+                 cropped.src = imgSrc;
+                 dwn.classList.remove('hide');
+                 dwn.download = 'imagename.png';
+                 dwn.setAttribute('href', imgSrc);
+ 
+             });
+ 
+         </script>
+         <script>
+             var button = document.getElementById('load');
+             button.addEventListener('click', function () {
+                 setImageData();
+                 console.log('Cropped')
+             })
+ 
+ 
+             function setImageData() {
+ 
+                 var imageElement = document.getElementById('cropped');
+                 var imageData = imageElement.src;
+                 var hiddenElement = document.getElementById("imageBaseData");
+                 hiddenElement.value = imageData;
+                 console.log("data set")
+             }
+         </script>
+ 
 
 {%endblock%}

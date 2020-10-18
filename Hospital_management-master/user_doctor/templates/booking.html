@@ -78,16 +78,16 @@
 									</div>
 								</div>
 							</div>
-							{% if user.is_authenticated %}
-								<!-- Submit Section -->
-								<div class="submit-section proceed-btn text-right pr-5">
-									<button class="btn btn-primary btn-block btn-lg login-btn" type="submit"  >Book Your Appointment</button>
-								</div>
-								<!-- /Submit Section -->
+							{% if block_user %}
+							<!-- Submit Section -->
+							<div class="submit-section proceed-btn text-right pr-5">
+								<button onclick="myFunction()" class="btn btn-danger btn-block btn-lg login-btn"  >You Are Blocked</button>
+							</div>
+							<!-- /Submit Section -->
 							{% else %}
 								<!-- Submit Section -->
 								<div class="submit-section proceed-btn text-right pr-5">
-									<a href="{% url 'guestlogin'%}" class="btn btn-primary submit-btn">Book Your Appointment</a>
+									<button class="btn btn-primary btn-block btn-lg login-btn" type="submit"  >Book Your Appointment</button>
 								</div>
 								<!-- /Submit Section -->
 							{% endif %}
@@ -106,6 +106,12 @@
 var today = new Date().toISOString().split('T')[0];
 document.getElementsByName("txtDate")[0].setAttribute('min', today);
 
+</script>
+
+<script>
+	function myFunction() {
+	  alert("You are blocked by the doctor please contact the admin");
+	}
 </script>
 
 {%endblock%}

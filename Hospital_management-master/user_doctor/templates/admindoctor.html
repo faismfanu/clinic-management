@@ -58,7 +58,7 @@
                                         <td>
                                             <h2 class="table-avatar">
                                                 <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                        class="avatar-img rounded-circle"
+                                                        class="avatar-img "
                                                         src="{{doctor.imageURL}} "
                                                         alt="User Image"></a>
                                                 <a href="profile.html">{{doctor.user_id.first_name}} {{doctor.user_id.last_name}}</a>
@@ -74,7 +74,7 @@
                                             <div class="status-toggle">
                                                 <a href="{% url 'update_doctor' doctor.id doctor.user_id.id %}"><i
                                                         class="fas fa-edit"></i></a>
-                                                <form action="{% url 'delete_doctor' doctor.user_id.id%}" method="POST" onsubmit="window.mytest()">
+                                                <form action="{% url 'delete_doctor' doctor.id doctor.user_id.id%}" method="POST" onsubmit="window.mytest()">
                                                     {%csrf_token%}
                                                 <input type="submit" value="Delete" STYLE="color: #FFFFFF; font-family: Verdana; font-weight: bold; font-size: 15   px; background-color: red;">
                                             </form>
@@ -101,5 +101,7 @@
   }
 
 </script>
+
+
 
 {%endblock%}

@@ -1,288 +1,394 @@
 {% load static %}
 
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
-	
-<!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
-<head>
-		<meta charset="utf-8">
-		<title>Doccure</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-		
-		<!-- Favicons -->
-		<link href="{% static 'img/favicon.png' %}" rel="icon">
-		
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-		
-		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
-		<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
-		
-		<!-- Select2 CSS -->
-		<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
-		
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="{% static 'plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css' %}">
-		
-		<link rel="stylesheet" href="{% static 'plugins/dropzone/dropzone.min.css' %}">
-		
-		<!-- Main CSS -->
-		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-		<!------------------------------------------------ADMIN------------------------------------------------------------------->
-		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}">
-		
-		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-		
-		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
-		
-		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
-		<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
-		
-		
-		<!-- Feathericon CSS -->
-        <link rel="stylesheet" href="{% static 'assets/css/feathericon.min.css' %}">
-		
-		<!-- Datatables CSS -->
-		<link rel="stylesheet" href="{% static 'assets/plugins/datatables/datatables.min.css' %}">
-		
-		<!-- Main CSS -->
-        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-		
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
+<!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
+
+<head>
+	<meta charset="utf-8">
+	<title>Doccure</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+	<!-- Favicons -->
+	<link href="{% static 'img/favicon.png' %}" rel="icon">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
+
+	<!-- Select2 CSS -->
+	<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{% static 'plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css' %}">
+
+	<link rel="stylesheet" href="{% static 'plugins/dropzone/dropzone.min.css' %}">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+	<!------------------------------------------------ADMIN------------------------------------------------------------------->
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
+
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="{% static 'assets/css/feathericon.min.css' %}">
+
+	<!-- Datatables CSS -->
+	<link rel="stylesheet" href="{% static 'assets/plugins/datatables/datatables.min.css' %}">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+	<link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
-	
-	</head>
-	<body>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css">
+	<style>
+		.page {
+			margin: 1em auto;
+			max-width: 768px;
+			display: flex;
+			align-items: flex-start;
+			flex-wrap: wrap;
+			height: 100%;
+		}
 
-		<!-- Main Wrapper -->
-		<div class="main-wrapper">
+		.box {
+			padding: 0.5em;
+			width: 100%;
+			margin: 0.5em;
+		}
 
-	<!-- Header -->
-            <div class="header">
+		.box-2 {
+			padding: 0.5em;
+			width: calc(100%/2 - 1em);
+		}
+
+		.options label,
+		.options input {
 			
-				<!-- Logo -->
-                <div class="header-left">
-                    <a href="index.html" class="logo">
-						<img src="{% static 'assets/img/logo.png'%} " alt="Logo">
-					</a>
-					<a href="index.html" class="logo logo-small">
-						<img src="{% static 'assets/img/logo-small.png'%}" alt="Logo" width="30" height="30">
-					</a>
-                </div>
-				<!-- /Logo -->
-				
-				<a href="javascript:void(0);" id="toggle_btn">
-					<i class="fe fe-text-align-left"></i>
-				</a>
-				
-				
-				<!-- Mobile Menu Toggle -->
-				<a class="mobile_btn" id="mobile_btn">
-					<i class="fa fa-bars"></i>
-				</a>
-				<!-- /Mobile Menu Toggle -->
+			width: 10em;
+			padding: 0.5em 1em;
+		}
+
+		.btn {
 			
-				<!-- Header Right Menu -->
-				<ul class="nav user-menu">
-					
-					{% if user.is_superuser %}
-					<!-- User Menu -->
-					<li class="nav-item dropdown has-arrow">
-						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<span class="user-img"><img class="rounded-circle" src="{% static 'assets/img/profiles/avatar-01.jpg'%} " width="31" alt="{{user.username}}"></span>
-						</a>
-						<div class="dropdown-menu">
-							<div class="user-header">
-								<div class="avatar avatar-sm">
-									<img src="{% static 'assets/img/profiles/avatar-01.jpg'%} " alt="User Image" class="avatar-img rounded-circle">
-								</div>
-								<div class="user-text">
-									<h6>{{user.username}}</h6>
-									<p class="text-muted mb-0">Administrator</p>
-								</div>
+			padding: 0.5em 1em;
+			text-decoration: none;
+			margin: 0.8em 0.3em;
+			display: inline-block;
+			cursor: pointer;
+            color: #fff;
+            box-shadow: 0 0 40px 40px #4cbf12 inset, 0 0 0 0 #4cbf12;
+            -webkit-transition: all 150ms ease-in-out;
+            transition: all 150ms ease-in-out;
+		}
+		
+
+		.hide {
+			display: none;
+		}
+
+		img {
+			max-width: 100%;
+			
+		}
+	</style>>
+
+</head>
+
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		<div class="header">
+
+			<!-- Logo -->
+			<div class="header-left">
+				<a href="index.html" class="logo">
+					<img src="{% static 'assets/img/logo.png'%} " alt="Logo">
+				</a>
+				<a href="index.html" class="logo logo-small">
+					<img src="{% static 'assets/img/logo-small.png'%}" alt="Logo" width="30" height="30">
+				</a>
+			</div>
+			<!-- /Logo -->
+
+			<a href="javascript:void(0);" id="toggle_btn">
+				<i class="fe fe-text-align-left"></i>
+			</a>
+
+
+			<!-- Mobile Menu Toggle -->
+			<a class="mobile_btn" id="mobile_btn">
+				<i class="fa fa-bars"></i>
+			</a>
+			<!-- /Mobile Menu Toggle -->
+
+			<!-- Header Right Menu -->
+			<ul class="nav user-menu">
+
+				{% if user.is_superuser %}
+				<!-- User Menu -->
+				<li class="nav-item dropdown has-arrow">
+					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+						<span class="user-img"><img class="rounded-circle"
+								src="{% static 'assets/img/profiles/avatar-01.jpg'%} " width="31"
+								alt="{{user.username}}"></span>
+					</a>
+					<div class="dropdown-menu">
+						<div class="user-header">
+							<div class="avatar avatar-sm">
+								<img src="{% static 'assets/img/profiles/avatar-01.jpg'%} " alt="User Image"
+									class="avatar-img rounded-circle">
 							</div>
-							<a class="dropdown-item" href="profile.html">My Profile</a>
-							<a class="dropdown-item" href="admindoctor.html">Doctors</a>
-							<a class="dropdown-item" href="{%url 'admin_logout'%}">Logout</a>
+							<div class="user-text">
+								<h6>{{user.username}}</h6>
+								<p class="text-muted mb-0">Administrator</p>
+							</div>
 						</div>
-					</li>
-					<!-- /User Menu -->
-				
-				</ul>
-				<!-- /Header Right Menu -->
-				{% endif %}
-            </div>
-			<!-- /Header -->
-		
-		
-			
-			<!-- Breadcrumb -->
-			<div class="breadcrumb-bar">
-				<div class="container-fluid">
-					<div class="row align-items-center">
-						<div class="col-md-12 col-12">
-							<nav aria-label="breadcrumb" class="page-breadcrumb">
-							</nav>
-							<
-						</div>
+						<a class="dropdown-item" href="profile.html">My Profile</a>
+						<a class="dropdown-item" href="admindoctor.html">Doctors</a>
+						<a class="dropdown-item" href="{%url 'admin_logout'%}">Logout</a>
+					</div>
+				</li>
+				<!-- /User Menu -->
+
+			</ul>
+			<!-- /Header Right Menu -->
+			{% endif %}
+		</div>
+		<!-- /Header -->
+
+
+
+		<!-- Breadcrumb -->
+		<div class="breadcrumb-bar">
+			<div class="container-fluid">
+				<div class="row align-items-center">
+					<div class="col-md-12 col-12">
+						<nav aria-label="breadcrumb" class="page-breadcrumb">
+						</nav>
+						< </div>
 					</div>
 				</div>
 			</div>
 			<!-- /Breadcrumb -->
-			
+
 			<!-- Page Content -->
 			<div class="content">
 				<div class="container-fluid">
 
 					<div class="row">
 						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-						
-						<!-- Sidebar -->
-						<div class="sidebar" id="sidebar">
-							<div class="sidebar-inner slimscroll">
-								<div id="sidebar-menu" class="sidebar-menu">
-									<ul>
-										<li class="menu-title"> 
-											<span>Main</span>
-										</li>
-										<li class="active"> 
-											<a href="{% url 'adminpanel'%}"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
-										</li>
-								
-									</ul>
+
+							<!-- Sidebar -->
+							<div class="sidebar" id="sidebar">
+								<div class="sidebar-inner slimscroll">
+									<div id="sidebar-menu" class="sidebar-menu">
+										<ul>
+											<li class="menu-title">
+												<span>Main</span>
+											</li>
+											<li class="active">
+												<a href="{% url 'adminpanel'%}"><i class="fe fe-user-plus"></i>
+													<span>Doctors</span></a>
+											</li>
+
+										</ul>
+									</div>
 								</div>
 							</div>
-						</div>
-						<!-- /Sidebar -->
-					
-							
+							<!-- /Sidebar -->
+
+
 						</div>
 						<div class="col-md-7 col-lg-8 col-xl-9">
-						
+
 							<!-- Basic Information -->
 							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">UPDATE EXISTING DOCTOR</h4>
-									<form action="" method="POST" enctype ="multipart/form-data">
-									{% csrf_token %}
-									<div class="row form-row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<div class="change-avatar">
-													<div class="profile-img">
-														<img id="blah" src="{{doctors.imageURL}}" alt="your image" />
+									<form action="" method="POST" enctype="multipart/form-data">
+										{% csrf_token %}
+										<div class="row form-row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<div class="">
+														<div class="profile-img d-flex p-2 bd-highlight ">
+															<img id="blah" src="{{doctors.imageURL}}"
+																alt="your image" style="width:100px;height:100px;"/>
+															<!-- leftbox -->
+														<div class="box-2">
+															<div class="result" ></div>
+														</div>
+														<!--rightbox-->
+														<div class="box-2 img-result hide">
+															<!-- result of crop -->
+															<img id="cropped" class="cropped" src="" alt="">
+														</div>
+														</div>
+														<input id="imageBaseData" class="hidden" name="image64data" type="hidden" required = True type="text">
+														<div class="upload-img">
+															<div class="change-photo-btn">
+																<span><i class="fa fa-upload"></i> Upload Photo</span>
+																<input type="file" class='upload' required = True id="file-input">
+														</div>
+																
+															</div>
+												
+														
+														
+														<!-- input file -->
+														<div class="box">
+															<div class="options hide">
+																<!-- <label> Width</label> -->
+																<input type="hidden"  name="myfile"
+																	class="img-w " value="300" min="100"
+																	max="1200" />
+															</div>
 													</div>
-													c
+												</div>
+														<!-- save btn -->
+														<button id="load" type="button" aria-required="true" class="btn save hide ">Confirm</button>
+														<!-- download btn -->
+											</div>
+										</div>
+
+
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>First name <span class="text-danger">*</span></label>
+													<input name="doctor_first_name" type="text"
+														value={{user.first_name}} class="form-control">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Last name <span class="text-danger">*</span></label>
+													<input name="doctor_last_name" type="text" class="form-control"
+														value={{user.last_name}}>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Email <span class="text-danger">*</span></label>
+													<input name="email" value={{user.email}} type="email"
+														class="form-control">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Phone Number</label>
+													<input name="doctor_phone" value={{doctors.doctor_phone}}
+														type="text" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Gender</label>
+													<select name="doctor_gender" autofocus required
+														class="form-control select">
+														<option value="{{doctors.doctor_gender}}">
+															{{doctors.doctor_gender}}</option>
+														<option value="Male">Male</option>
+														<option value="Female">Female</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group mb-0">
+													<label>Date of Birth</label>
+													<input name="doctor_dob" type="date" class="form-control"
+														value='{{doctors.doctor_dob|date:"Y-m-d" }}'>
 												</div>
 											</div>
 										</div>
-
-
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>First name <span class="text-danger">*</span></label>
-												<input name ="doctor_first_name" type="text" value = {{user.first_name}} class="form-control">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Last name  <span class="text-danger">*</span></label>
-												<input name ="doctor_last_name" type="text"  class="form-control" value = {{user.last_name}}>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Email <span class="text-danger">*</span></label>
-												<input name = "email" value = {{user.email}} type="email" class="form-control">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Phone Number</label>
-												<input name="doctor_phone" value = {{doctors.doctor_phone}} type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Gender</label>
-												<select name="doctor_gender" autofocus required class="form-control select">
-													<option value = "{{doctors.doctor_gender}}">{{doctors.doctor_gender}}</option>
-													<option value="Male">Male</option>
-													<option value="Female">Female</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group mb-0">
-												<label>Date of Birth</label>
-												<input name ="doctor_dob" type="date"  class="form-control" value='{{doctors.doctor_dob|date:"Y-m-d" }}'>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 							<!-- /Basic Information -->
-							
-		
+
+
 
 							<!-- Contact Details -->
 							<div class="card contact-card">
 								<div class="card-body">
 									<h4 class="card-title">Contact Details</h4>
-									<div class="row form-row">	
+									<div class="row form-row">
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">City</label>
-												<input type="text" name="doctor_city" value = {{doctors.doctor_city}} class="form-control">
+												<input type="text" name="doctor_city" value={{doctors.doctor_city}}
+													class="form-control">
 											</div>
 										</div>
 
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">State / Province</label>
-												<input type="text"name="doctor_state" value = {{doctors.doctor_state}} class="form-control">
+												<input type="text" name="doctor_state" value={{doctors.doctor_state}}
+													class="form-control">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Postal Code</label>
-												<input type="number" name="doctor_zipcode" value = {{doctors.doctor_zipcode}} class="form-control">
+												<input type="number" name="doctor_zipcode"
+													value={{doctors.doctor_zipcode}} class="form-control">
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<!-- /Contact Details -->
-							
-							
+
+
 							<!-- Services and Specialization -->
 							<div class="card services-card">
 								<div class="card-body">
 									<h4 class="card-title">Services and Specialization</h4>
 									<div class="form-group">
 										<label>Services</label>
-										<input type="text" data-role="tagsinput"  class="input-tags form-control" placeholder="Enter Services" name="services" value="{{doctors.doctor_services}} " id="services">
-										<small class="form-text text-muted">Note : Type & Press enter to add new services</small>
-									</div> 
+										<input type="text" data-role="tagsinput" class="input-tags form-control"
+											placeholder="Enter Services" name="services"
+											value="{{doctors.doctor_services}} " id="services">
+										<small class="form-text text-muted">Note : Type & Press enter to add new
+											services</small>
+									</div>
 									<div class="form-group mb-0">
 										<label>Specialization </label>
-										<input class="input-tags form-control" type="text" value = {{doctors.doctor_Field}} data-role="tagsinput" placeholder="Enter Specialization" name="Field"  id="specialist">
-										<small class="form-text text-muted">Note : Type & Press  enter to add new specialization</small>
-									</div> 
-								</div>              
+										<input class="input-tags form-control" type="text"
+											value={{doctors.doctor_Field}} data-role="tagsinput"
+											placeholder="Enter Specialization" name="Field" id="specialist">
+										<small class="form-text text-muted">Note : Type & Press enter to add new
+											specialization</small>
+									</div>
+								</div>
 							</div>
 							<!-- /Services and Specialization -->
-						 
+
 							<!-- Education -->
 							<div class="card">
 								<div class="card-body">
@@ -294,94 +400,245 @@
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
 															<label>Degree</label>
-															<input name="degree"  type="text" class="form-control" required>
-														</div> 
+															<input name="degree" type="text" class="form-control"
+																required>
+														</div>
 													</div>
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
 															<label>College/Institute</label>
 															<input type="text" name="college" class="form-control">
-														</div> 
+														</div>
 													</div>
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
 															<label>Year of Completion</label>
-															<input type="text" name="year"  class="form-control">
-														</div> 
+															<input type="text" name="year" class="form-control">
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="add-more">
-										<a href="javascript:void(0);" class="add-education"><i class="fa fa-plus-circle"></i> Add More</a>
+										<a href="javascript:void(0);" class="add-education"><i
+												class="fa fa-plus-circle"></i> Add More</a>
 									</div>
 								</div>
 							</div>
-							<!-- /Education -->	
-							
-							
+							<!-- /Education -->
+
+
 							<div class="submit-section submit-btn-bottom">
 								<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
 							</div>
-							
+
 						</div>
 					</div>
 
 				</div>
 
-			</div>		
-		</form>
+			</div>
+			</form>
 			<!-- /Page Content -->
-   
-		   
+
+
 		</div>
 		<!-- /Main Wrapper -->
 
 
 
 		<script>
-			     function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result);
-                };
+					reader.onload = function (e) {
+						$('#blah')
+							.attr('src', e.target.result);
+					};
 
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
 		</script>
-	  
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+
+		<script>
+			// vars
+			let result = document.querySelector('.result'),
+				img_result = document.querySelector('.img-result'),
+				img_w = document.querySelector('.img-w'),
+				img_h = document.querySelector('.img-h'),
+				options = document.querySelector('.options'),
+				save = document.querySelector('.save'),
+				cropped = document.querySelector('.cropped'),
+				dwn = document.querySelector('.download'),
+				upload = document.querySelector('#file-input'),
+				cropper = '';
+
+			// on change show image with crop options
+			upload.addEventListener('change', (e) => {
+				if (e.target.files.length) {
+					// start file reader
+					const reader = new FileReader();
+					reader.onload = (e) => {
+						if (e.target.result) {
+							// create new image
+							let img = document.createElement('img');
+							img.id = 'image';
+							img.src = e.target.result
+							// clean result before
+							result.innerHTML = '';
+							// append new image
+							result.appendChild(img);
+							// show save btn and options
+							save.classList.remove('hide');
+							options.classList.remove('hide');
+							// init cropper
+							cropper = new Cropper(img);
+						}
+					};
+					reader.readAsDataURL(e.target.files[0]);
+				}
+			});
+
+			// save on click
+			save.addEventListener('click', (e) => {
+				e.preventDefault();
+				// get result to data uri
+				let imgSrc = cropper.getCroppedCanvas({
+					width: img_w.value // input value
+				}).toDataURL();
+				// remove hide class of img
+				cropped.classList.remove('hide');
+				img_result.classList.remove('hide');
+				// show image cropped
+				cropped.src = imgSrc;
+				dwn.classList.remove('hide');
+				dwn.download = 'imagename.png';
+				dwn.setAttribute('href', imgSrc);
+
+			});
+
+		</script>
+		<script>
+			var button = document.getElementById('load');
+			button.addEventListener('click', function () {
+				setImageData();
+				console.log('Cropped')
+			})
+
+
+			function setImageData() {
+
+				var imageElement = document.getElementById('cropped');
+				var imageData = imageElement.src;
+				var hiddenElement = document.getElementById("imageBaseData");
+				hiddenElement.value = imageData;
+				console.log("data set")
+			}
+		</script>
+
+
+		<script src="https://unpkg.com/jcrop"></script>
+
+		<script>
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function (e) {
+						$('#blah')
+							.attr('src', e.target.result);
+					};
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+		</script>
+
+		<script>
+			$(document).ready(function () {
+				var max_fields = 10; //maximum input boxes allowed
+				var wrapper = $(".input_fields_wrap"); //Fields wrapper
+				var add_button = $(".add_field_button"); //Add button ID
+
+				var x = 1; //initlal text box count
+				$(add_button).click(function (e) { //on add input button click
+					e.preventDefault();
+					if (x < max_fields) { //max input box allowed
+						x++; //text box increment
+						$(wrapper).append('<div> <input type="text" name="mytext[' + x + ']"/> <input type="date" name="mydate[' + x + ']"/> <select name="myselect[' + x + ']"><option>Please Select</option></select> <a href="#" class="remove_field">Remove</a> </div>'); // add input boxes.
+					}
+				});
+
+				$(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+					e.preventDefault(); $(this).parent('div').remove(); x--;
+				})
+			});
+		</script>
+		<script>
+			
+
+		</script>
 		<!-- jQuery -->
 		<script src="{% static 'js/jquery.min.js' %}"></script>
-		
+
 		<!-- Bootstrap Core JS -->
 		<script src="{% static 'js/popper.min.js' %}"></script>
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
-		
+
 		<!-- Sticky Sidebar JS -->
-        <script src="{% static 'plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
-        <script src="{% static 'plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
-		
+		<script src="{% static 'plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+		<script src="{% static 'plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
 		<!-- Select2 JS -->
 		<script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
-		
+
 		<!-- Dropzone JS -->
 		<script src="{% static 'plugins/dropzone/dropzone.min.js' %}"></script>
-		
+
 		<!-- Bootstrap Tagsinput JS -->
 		<script src="{% static 'plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js' %}"></script>
-		
+
 		<!-- Profile Settings JS -->
 		<script src="{% static 'js/profile-settings.js' %}"></script>
-		
+
 		<!-- Custom JS -->
 		<script src="{% static 'js/script.js' %}"></script>
-		
-	</body>
+
+
+		<!-- jQuery -->
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'js/popper.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+		<!-- Sticky Sidebar JS -->
+		<script src="{% static 'plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+		<script src="{% static 'plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+		<!-- Select2 JS -->
+		<script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
+
+		<!-- Dropzone JS -->
+		<script src="{% static 'plugins/dropzone/dropzone.min.js' %}"></script>
+
+		<!-- Bootstrap Tagsinput JS -->
+		<script src="{% static 'plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js' %}"></script>
+
+		<!-- Profile Settings JS -->
+		<script src="{% static 'js/profile-settings.js' %}"></script>
+
+		<!-- Custom JS -->
+		<script src="{% static 'js/script.js' %}"></script>
+
+</body>
 
 <!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:15 GMT -->
+
 </html>

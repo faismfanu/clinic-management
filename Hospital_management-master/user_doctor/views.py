@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
-from .models import Appointment, Patient, Prescription, Doctor,doctor_qualification
+from .models import Appointment, Patient, Prescription, Doctor,doctor_qualification,Doctor_patient,Blocked_users    
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate
 from django.contrib import messages
@@ -18,6 +18,7 @@ from PIL import Image
 from base64 import decodestring
 import binascii
 from django.core.files import File
+from django.http import JsonResponse 
 from django.core.files.base import ContentFile
 
 
@@ -29,14 +30,8 @@ def index(request):
 
 
 def login(request):
-    # if request.user.is_authenticated:
-    #     if request.user.is_superuser:
-    #         return redirect("adminpanel")
-    #     else:
-    #         doctors = Doctor.objects.all()
-    #         return render(request, 'index.html',{'doctors':doctors})
     if request.user.is_authenticated:
-        return redirect('/')
+        return redirect(index)
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -283,11 +278,14 @@ def patient_profile(request):
         patient.patient_state = request.POST.get('patient_state')
         patient.patient_zipcode = request.POST.get('patient_zipcode')
         patient.patient_address = request.POST.get('patient_address')
-        if 'fais' not in request.POST:
-            patient.patient_image =request.FILES.get('fais')
-        else:
-            pat = Patient.objects.get(user=user)
-            patient.patient_image = pat.patient_image
+        image_data =request.POST.get('image64data')
+        format, imgstr = image_data.split(';base64,')
+        ext = format.split('/')[-1]
+        data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
+        try:
+            patient.patient_image = data
+        except:
+            patient.patient_image = 0
         patient.save()
         return redirect('patient_profile')
 
@@ -299,8 +297,17 @@ def patient_profile(request):
 @staff_member_required(login_url='/')
 def booking(request,id):
     doctor=Doctor()
+    user = request.user.id
+    patient = Patient.objects.get(user=user)
+    print("blah",patient)
     doctor = Doctor.objects.get(id=id)
-    return render(request, 'booking.html',{'doctor':doctor})    
+    try:
+        block_user = Blocked_users.objects.get(patient=patient,doctor=id)
+    except:
+        block_user = 0    
+    print('soha',block_user)
+
+    return render(request, 'booking.html',{'doctor':doctor,'block_user':block_user})    
 
 
 
@@ -317,6 +324,7 @@ def booking_save(request,id):
         print(patient) 
         doctor = Doctor.objects.get(id=id)
         print(doctor)
+        doctor_patient, created = Doctor_patient.objects.get_or_create(doctor=doctor, patient=patient)
         times.patient_id = patient 
         times.doctor = doctor
         times.user_id = patient_name
@@ -393,7 +401,7 @@ def doctor_profile(request,id):
 @login_required(login_url='doctorlogin')
 def doctor_patient_profile(request,id):
     user = User.objects.get(id=id)
-    times = Appointment.objects.filter( user_id=id)
+    times = Appointment.objects.filter(user_id=id)
     print(times)
     return render(request, 'doctor_patient_profile.html',{'user':user,'times':times})
 
@@ -476,11 +484,11 @@ def edit_doctor(request,id,user_id):
         doctors.doctor_services = request.POST.get('services')
         doctors.doctor_qualification = request.POST.get('qualification')
         doctors.doctor_Field = request.POST.get('Field')
-        if 'myfile' not in request.POST:
-            doctors.doctor_image =request.FILES.get('myfile')
-        else:
-             doc = Doctor.objects.get(id=id)
-             doctors.doctor_image = doc.doctor_image
+        image_data =request.POST.get('image64data')
+        format, imgstr = image_data.split(';base64,')
+        ext = format.split('/')[-1]
+        data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
+        doctors.doctor_image = data
         doctors.save()
         return redirect('doctor_appointment')
     return render(request, 'edit_doctor.html' ,{'doctors':doctors,'user':user}) 
@@ -503,10 +511,63 @@ def doctor_patients(request):
 
 @login_required(login_url='doctorlogin')
 def patientsample(request):
+    doctor = Doctor()
+    time = Appointment()
+    user = request.user.id
+    doctor = Doctor.objects.get(user_id=user)
+    try:
+        doctor_q = doctor_qualification.objects.get(doctor=doctor)
+    except:
+        doctor_q = 0  
+    print(user)
+    doctor_patient = doctor.doctor_patient_set.all()
+    print('ggggg',doctor_patient)
     patient = Patient()
     patient = Patient.objects.all()
+    time = Appointment.objects.all()
     print(patient)
-    return render(request, 'patientsample.html',{'patient':patient})   
+    return render(request, 'patientsample.html',{'patient':patient,'doctor':doctor,'time':time,'doctor_q':doctor_q,'doctor_patient':doctor_patient})   
+
+
+@login_required(login_url='doctorlogin')
+def patient_profile_sample(request,id,pat_id,doc_id):
+    patient = Patient.objects.get(id=pat_id)
+    doctor = Doctor.objects.get(id=doc_id)
+    print(doctor)
+    times = Appointment.objects.filter(user_id=id,doctor=doc_id)
+    try:
+        block_user = Blocked_users.objects.get(patient=pat_id,doctor=doc_id)
+    except:
+        block_user = 0
+
+    print('bbbb',block_user)
+    print(times)
+    return render(request, "patient_profile_sample.html",{"patient":patient,'times':times,'doctor':doctor,'block_user':block_user})
+
+@login_required(login_url='doctorlogin')
+def block_user(request,pat_id,doc_id):
+    doctor = Doctor()
+    patient = Patient()
+    block_user = Blocked_users()
+    doctor = Doctor.objects.get(id=doc_id)
+    print(doctor)
+    patient = Patient.objects.get(id=pat_id)
+    print(patient)
+    block_user, created = Blocked_users.objects.get_or_create(doctor=doctor, patient=patient,status=0)
+    return redirect('patient_profile_sample', patient.user.id , patient.id,doctor.id)
+
+@login_required(login_url='doctorlogin')
+def unblock_user(request,id,pat_id,doc_id):
+    doctor = Doctor()
+    patient = Patient()
+    doctor = Doctor.objects.get(id=doc_id)
+    print(doctor)
+    patient = Patient.objects.get(id=pat_id)
+    block_user = Blocked_users.objects.get(id=id)
+    print('uuu0',block_user)
+    block_user.delete()
+    return redirect('patient_profile_sample', patient.user.id , patient.id ,doctor.id) 
+
 
 #----------------------------------Admin_view--------------------------------------------#
 
@@ -541,6 +602,7 @@ def adminpanel(request):
 def admin_add_doctor(request):
     if request.method == 'POST':
         doctors = Doctor()
+        user = request.user
         qualification = doctor_qualification.objects.create(doctor=doctors.id)
         username = request.POST['doctor_user_name']
         first_name = request.POST['doctor_first_name']
@@ -556,12 +618,6 @@ def admin_add_doctor(request):
         else:
             user = User.objects.create_user(username=username,email=email,password=password,first_name=first_name,last_name=last_name,is_staff=0)
             doctors.user_id = user
-            image_data =request.POST.get('image64data')
-            print(image_data)
-            format, imgstr = image_data.split(';base64,')
-            ext = format.split('/')[-1]
-            data = ContentFile(base64.b64decode(imgstr),name='temp.' + ext)
-            doctors.doctor_image = data
             doctors.doctor_first_name = request.POST.get('doctor_first_name')
             doctors.doctor_last_name= request.POST.get('doctor_last_name')
             # doctors.doctor_password = request.POST.get('doctor_password')
@@ -574,13 +630,13 @@ def admin_add_doctor(request):
             doctors.doctor_zipcode = request.POST.get('doctor_zipcode')
             doctors.doctor_services = request.POST.get('services') 
             doctors.doctor_Field = request.POST.get('Field')
+            image_data =request.POST.get('image64data')
+            format, imgstr = image_data.split(';base64,')
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
+            doctors.doctor_image = data
             user.save()
             doctors.save()
-            qualification.doctor = doctors
-            qualification.doctor_degree = request.POST.get('degree')
-            qualification.doctor_college = request.POST.get('college')
-            qualification.doctor_year = request.POST.get('year')
-            qualification.save()
             messages.error(request,"New Doctor Added")
             return redirect('adminpanel')
     else:
@@ -612,13 +668,15 @@ def update_doctor(request,id,user_id):
         doctors.doctor_services = request.POST.get('services')
         doctors.doctor_qualification = request.POST.get('qualification')
         doctors.doctor_Field = request.POST.get('Field')
-        if 'myfile' not in request.POST:
-            doctors.doctor_image =request.FILES.get('myfile')
-        else:
-             doc = Doctor.objects.get(id=id)
-             doctors.doctor_image = doc.doctor_image
-
-
+        image_data =request.POST.get('image64data')
+        format, imgstr = image_data.split(';base64,')
+        ext = format.split('/')[-1]
+        data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
+        doctors.doctor_image = data
+        # if 'myfile' not in request.POST: 
+        # else:
+        #      doc = Doctor.objects.get(id=id)
+        #      doctors.doctor_image = doc.doctor_image
         doctors.save()
         return redirect('adminpanel')
 
@@ -626,11 +684,11 @@ def update_doctor(request,id,user_id):
 
 
 @user_passes_test(lambda u: u.is_superuser,login_url='admin_login')
-def delete_doctor(request,id):
+def delete_doctor(request,id,user_id):
     doctor =Doctor()
-    user = User.objects.get(id=id)
+    user = User.objects.get(id=user_id)
     print(user)
-    doctor = Doctor.objects.get(user_id=id)
+    doctor = Doctor.objects.get(id=id)
     print(doctor)
     user.delete()
     doctor.delete()
@@ -640,3 +698,21 @@ def delete_doctor(request,id):
 
 def sample(request):
     return render(request, 'sample.html')
+
+
+def addmove(request):
+    text = request.POST.getlist('det_ails[]')
+    dl = request.POST.get('dl')
+    # print(dl)
+    user = User.objects.get(username=dl)
+    doc = Doctor.objects.get(user_id=user)
+
+
+
+    print(doc) 
+    
+    for texts in text:
+        print(texts)
+        colifi = doctor_qualification.objects.create(doctor_degree=texts,doctor=doc)
+    # return JsonResponse({'xc':2},status=200)
+    return redirect('/')
