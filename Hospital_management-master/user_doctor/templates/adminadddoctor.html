@@ -286,41 +286,41 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Password <span class="text-danger">*</span></label>
-													<input name="doctor_password" type="password" class="form-control"
+													<input name="doctor_password" id = "password" type="password" class="form-control"
 														required>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>First name <span class="text-danger">*</span></label>
-													<input name="doctor_first_name" type="text" class="form-control"
+													<input name="doctor_first_name" id="f_name" type="text" class="form-control"
 														required>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Last name <span class="text-danger">*</span></label>
-													<input name="doctor_last_name" type="text" class="form-control">
+													<input name="doctor_last_name" id="l_name" type="text" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Email <span class="text-danger">*</span></label>
-													<input name="doctor_email" type="email" class="form-control"
+													<input name="doctor_email" id="email" type="email" class="form-control"
 														required>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Phone Number</label>
-													<input name="doctor_phone" type="text" class="form-control"
+													<input name="doctor_phone" id="phone" type="text" class="form-control"
 														required>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Gender</label>
-													<select name="doctor_gender" autofocus required
+													<select name="doctor_gender" id="gender" autofocus required
 														class="form-control select">
 														<option></option>
 														<option value="Male">Male</option>
@@ -331,7 +331,7 @@
 											<div class="col-md-6">
 												<div class="form-group mb-0">
 													<label>Date of Birth</label>
-													<input name="doctor_dob" type="date" class="form-control" required>
+													<input name="doctor_dob" id="dob" type="date" class="form-control" required>
 												</div>
 											</div>
 										</div>
@@ -349,20 +349,20 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">City</label>
-												<input type="text" name="doctor_city" class="form-control" required>
+												<input type="text" id="city" name="doctor_city" class="form-control" required>
 											</div>
 										</div>
 
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">State / Province</label>
-												<input type="text" name="doctor_state" class="form-control" required>
+												<input type="text" id="state" name="doctor_state" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Postal Code</label>
-												<input type="number" name="doctor_zipcode" class="form-control"
+												<input type="number" id="code" name="doctor_zipcode" class="form-control"
 													required>
 											</div>
 										</div>
@@ -378,14 +378,14 @@
 									<h4 class="card-title">Services and Specialization</h4>
 									<div class="form-group">
 										<label>Services</label>
-										<input type="text" data-role="tagsinput" class="input-tags form-control"
+										<input type="text" id="service" data-role="tagsinput" class="input-tags form-control"
 											placeholder="Enter Services" name="services" id="services" required>
 										<small class="form-text text-muted">Note : Type & Press enter to add new
 											services</small>
 									</div>
 									<div class="form-group mb-0">
 										<label>Specialization </label>
-										<input class="input-tags form-control" type="text" data-role="tagsinput"
+										<input class="input-tags form-control" id="spec" type="text" data-role="tagsinput"
 											placeholder="Enter Specialization" name="Field" id="specialist" required>
 										<small class="form-text text-muted">Note : Type & Press enter to add new
 											specialization</small>

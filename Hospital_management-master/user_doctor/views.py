@@ -702,17 +702,23 @@ def sample(request):
 
 def addmove(request):
     text = request.POST.getlist('det_ails[]')
-    dl = request.POST.get('dl')
-    # print(dl)
-    user = User.objects.get(username=dl)
-    doc = Doctor.objects.get(user_id=user)
-
-
-
-    print(doc) 
-    
     for texts in text:
         print(texts)
-        colifi = doctor_qualification.objects.create(doctor_degree=texts,doctor=doc)
-    # return JsonResponse({'xc':2},status=200)
     return redirect('/')
+
+
+
+ # doc = request.POST.get('docname')  
+    # print('kooi',doc)  
+    # dl = request.POST.get('dl')
+    # # print(dl)
+    # user = User.objects.get(username=dl)
+    # doc = Doctor.objects.get(user_id=user)
+
+
+
+    # print("adsfdasf",doc) 
+    
+    
+    #     colifi = doctor_qualification.objects.create(doctor_degree=texts,doctor=doc)
+    # return JsonResponse({'xc':2},status=200)    
