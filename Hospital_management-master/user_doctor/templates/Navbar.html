@@ -46,7 +46,7 @@
 			<header class="header">
 				<nav class="navbar navbar-expand-lg header-nav">
 					<div class="navbar-header">
-						<a id="mobile_btn" ">
+						<a id="mobile_btn" href="javascript:void(0);">
 							<span class="bar-icon">
 								<span></span>
 								<span></span>
@@ -59,13 +59,30 @@
 					</div>
 					<div class="main-menu-wrapper">
 						<div class="menu-header">
-							<a href="index-2.html" class="menu-logo">
+							<a href="" class="menu-logo">
 								<img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
 							</a>
 							<a id="menu_close" class="menu-close" href="javascript:void(0);">
 								<i class="fas fa-times"></i>
 							</a>
 						</div>
+						<ul class="main-nav">
+							<li class="active">
+								<a href="{%url 'index'%}">Home</a>
+							</li>
+							<li class="login-link">
+								{% if user.is_authenticated and user.is_staff == 1 %}
+								<a href="{%url 'user_account' %}">My Account</a>
+								<a href="{%url 'logout'%}">Logout</a>
+								{% elif  user.is_authenticated and user.is_staff == 0 %}
+								<a href="{%url 'doctor_appointment' %}">My Account</a>
+								<a href="{%url 'logout'%}">Logout</a>
+								{% else %}
+								<a href="{% url 'login' %}">Login </a>
+								<a href="{% url 'signup' %}">Signup</a>
+								{% endif %}
+							</li>
+						</ul>		 
 					</div>		 
 					<ul class="nav header-navbar-rht">
 						<li class="nav-item contact-item">
@@ -74,7 +91,7 @@
 							</div>
 							<div class="header-contact-detail">
 								<p class="contact-header">Contact</p>
-								<p class="contact-info-header"> +91 9048419922</p>
+								<p class="contact-info-header"> +9048419922</p>
 							</div>
 						</li>
 						{% if user.is_authenticated and user.is_staff == 1 %}
@@ -121,7 +138,7 @@
 					</ul>
 				</nav>
 			</header>
-            <!-- /Header -->
+			<!-- /Header -->
         {%block content%}
         
         {%endblock%}

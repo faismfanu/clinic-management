@@ -65,13 +65,15 @@ def signup(request):
             if User.objects.filter(username=username).exists():
                 messages.info(request, 'username already taken', dicti)
                 return render(request, 'signup.html', dicti)
+            elif User.objects.filter(last_name=number).exists():
+                messages.info(request, 'mobile number already exist', dicti)
+                return render(request, 'signup.html', dicti)    
             else:
               user = User.objects.create_user(
               username=username,  password=password, last_name=number, first_name=password, is_staff=1)
               patients.user = user
               patients.user_name = request.POST.get('username')
               patients.patient_full_name = request.POST.get('patient_full_name')
-       
               patients.patient_mobile = request.POST.get('number')
               patients.save()
               user.save()
@@ -672,7 +674,7 @@ def update_doctor(request,id,user_id):
         format, imgstr = image_data.split(';base64,')
         ext = format.split('/')[-1]
         data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
-        doctors.doctor_image = data
+        doctors.doctor_image = data                
         # if 'myfile' not in request.POST: 
         # else:
         #      doc = Doctor.objects.get(id=id)
