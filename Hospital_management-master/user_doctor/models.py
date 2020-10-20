@@ -94,8 +94,8 @@ class Doctor(models.Model):
 class doctor_qualification(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete = models.CASCADE, null = True, blank = True)
     doctor_degree = models.CharField(max_length=225)
-    doctor_college = models.CharField(max_length=225)
-    doctor_year = models.CharField(max_length=225)   
+    doctor_degree1 = models.CharField(max_length=225)
+    doctor_degree2 = models.CharField(max_length=225)   
     
 
 

@@ -56,8 +56,8 @@ urlpatterns = [
     path('adminadddoctor',views.admin_add_doctor,name='adminadddoctor'),
     path('update_doctor/<int:id>/<int:user_id>',views.update_doctor,name='update_doctor'),
     path('delete_doctor/<int:id>/<int:user_id>',views.delete_doctor,name='delete_doctor'),
-    path('sample',views.sample,name='sample'),
-    path('addreci/',views.addmove)
+    # path('sample',views.sample,name='sample'),
+    # path('addreci/',views.addmove)
     
 
 ]

@@ -94,7 +94,7 @@
 								<p class="contact-info-header"> +9048419922</p>
 							</div>
 						</li>
-						{% if user.is_authenticated and user.is_staff == 1 %}
+						{% if user.is_authenticated and user.is_staff == 1 and usser.is_superuser == 0 %}
 						<ul class="main-nav">
 							<li class="has-submenu">
                                 <a >{{user.username}}<i class="fas fa-chevron-down"></i></a>

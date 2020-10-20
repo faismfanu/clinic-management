@@ -41,7 +41,7 @@
         display: inline-block;
         cursor: pointer;
         color: #fff;
-        box-shadow: 0 0 40px 40px #4cbf12 inset, 0 0 0 0 #4cbf12;
+        box-shadow: 0 0 40px 40px #29a7d5 inset, 0 0 0 0 #4cbf12;
         -webkit-transition: all 150ms ease-in-out;
         transition: all 150ms ease-in-out;
     }
@@ -171,7 +171,7 @@
 														<div class="upload-img">
 															<div class="change-photo-btn">
 																<span><i class="fa fa-upload"></i> Upload Photo</span>
-																<input type="file" class='upload' required = True id="file-input">
+																<input type="file" class='upload'  id="file-input">
 															</div>
 															
 														</div>
@@ -299,8 +299,21 @@
                                                         <div class="col-12 col-md-6 col-lg-4">
                                                             <div class="form-group">
                                                                 <label>Degree</label>
-                                                                <input name="qualification" value = {{doctors.doctor_qualification}} type="text" class="form-control">
-                                                            </div> 
+                                                                <input name="degree" type="text" value="{{qualification.doctor_degree}}" class="form-control"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Degree</label>
+                                                                <input name="degree1" type="text" value="{{qualification.doctor_degree1}}" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Degree</label>
+                                                                <input type="text" name="degree2" value="{{qualification.doctor_degree2}}" class="form-control">
+                                                            </div>
                                                         </div>
                                                        
                                                     </div>

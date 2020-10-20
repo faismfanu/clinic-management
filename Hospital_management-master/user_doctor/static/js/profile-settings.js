@@ -73,58 +73,57 @@ function getCookie(name) {
 	$(document).ready(function(){
 		
 	});
-	// const employee = new orgObject();
-	var gh = new Array()
-	var mh = new Array()
-	var jh = new Array()
-	$("#nhy").click(function(){
-		var kli = $("#dl").val();
-		// alert(kli)
+	// // const employee = new orgObject();
+	// var gh = new Array()
+	// var mh = new Array()
+	// var jh = new Array()
+	// $("#nhy").click(function(){
+	// 	var kli = $("#dl").val();
+	// 	// alert(kli)
 
-		const aas = document.querySelectorAll("#aas");
-		const abs = document.querySelectorAll("#abs");
-		const acs = document.querySelectorAll("#acas");
+	// 	const aas = document.querySelectorAll("#aas");
+	// 	const abs = document.querySelectorAll("#abs");
+	// 	const acs = document.querySelectorAll("#acas");
 		
 		
-		console.log(kli);
-		// alert(aas.length)
-		console.log(acs.length)
-		for (let index = 0; index < aas.length; index++) {
+	// 	console.log(kli);
+	// 	// alert(aas.length)
+	// 	console.log(acs.length)
+	// 	for (let index = 0; index < aas.length; index++) {
 		
-			var hg = aas[index].value;
+	// 		var hg = aas[index].value;
 			
-			gh.push(hg)
+	// 		gh.push(hg)
 			
-			//var jg = acs[index].value;
-			// alert(gh)
-			// gh.push(hg)
+	// 		//var jg = acs[index].value;
+	// 		// alert(gh)
+	// 		// gh.push(hg)
 			
 			
-		}
-		//console.log(gh);
+	// 	}
+	// 	//console.log(gh);
 	
 		
 		
-		console.log(gh);
+	// 	console.log(gh);
 		
-		$.ajax({
-			url:'addreci/',
-			type:'POST',
-			data: {
-				'det_ails[]':gh,
-				dl:kli,
-				csrfmiddlewaretoken:csrftoken
+	// 	$.ajax({
+	// 		url:'addreci/',
+	// 		type:'POST',
+	// 		data: {
+	// 			'det_ails[]':gh,
+	// 			dl:kli,
+	// 			csrfmiddlewaretoken:csrftoken
 				
 
-			},
-			success:function(resp){
-				// alert("succ")
-			},
-			error: function (error) {
-				console.log(error)
-			}
-		});
-	});
+	// 		},
+	// 		success:function(resp){
+	// 			// alert("succ")
+	// 		},
+	// 		error: function (error) {
+	// 			console.log(error)
+			
+
 
 	// Experience Add More
 	

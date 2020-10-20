@@ -464,6 +464,7 @@ def edit_doctor(request,id,user_id):
     doctors =Doctor()
     user = User()
     doctors = Doctor.objects.get(id=id)
+    qualification = doctor_qualification.objects.get(doctor=id)
     user = User.objects.get(id=user_id)
     print(user)
     if request.method == 'POST':  
@@ -487,13 +488,21 @@ def edit_doctor(request,id,user_id):
         doctors.doctor_qualification = request.POST.get('qualification')
         doctors.doctor_Field = request.POST.get('Field')
         image_data =request.POST.get('image64data')
-        format, imgstr = image_data.split(';base64,')
-        ext = format.split('/')[-1]
-        data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
-        doctors.doctor_image = data
+        try:
+            format, imgstr = image_data.split(';base64,')
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
+            doctors.doctor_image = data
+        except:
+            pass    
         doctors.save()
+        qualification.doctor= doctors
+        qualification.doctor_degree = request.POST.get('degree')
+        qualification.doctor_degree1 = request.POST.get('degree1')
+        qualification.doctor_degree2 = request.POST.get('degree2')
+        qualification.save()
         return redirect('doctor_appointment')
-    return render(request, 'edit_doctor.html' ,{'doctors':doctors,'user':user}) 
+    return render(request, 'edit_doctor.html' ,{'doctors':doctors,'user':user,'qualification':qualification}) 
 
 
 
@@ -639,6 +648,11 @@ def admin_add_doctor(request):
             doctors.doctor_image = data
             user.save()
             doctors.save()
+            qualification.doctor= doctors
+            qualification.doctor_degree = request.POST.get('degree')
+            qualification.doctor_degree1 = request.POST.get('degree1')
+            qualification.doctor_degree2 = request.POST.get('degree2')
+            qualification.save()
             messages.error(request,"New Doctor Added")
             return redirect('adminpanel')
     else:
@@ -649,6 +663,7 @@ def admin_add_doctor(request):
 def update_doctor(request,id,user_id):
     doctors =Doctor()
     doctors = Doctor.objects.get(id=id)
+    qualification = doctor_qualification.objects.get(doctor=id)
     user = User.objects.get(id=user_id)
     print(user)
     if request.method == 'POST':
@@ -671,18 +686,26 @@ def update_doctor(request,id,user_id):
         doctors.doctor_qualification = request.POST.get('qualification')
         doctors.doctor_Field = request.POST.get('Field')
         image_data =request.POST.get('image64data')
-        format, imgstr = image_data.split(';base64,')
-        ext = format.split('/')[-1]
-        data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
-        doctors.doctor_image = data                
+        try:
+            format, imgstr = image_data.split(';base64,')    
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(imgstr),name= str(user.id)+'.' +ext)
+            doctors.doctor_image = data 
+        except:
+            pass
         # if 'myfile' not in request.POST: 
         # else:
         #      doc = Doctor.objects.get(id=id)
         #      doctors.doctor_image = doc.doctor_image
         doctors.save()
+        qualification.doctor= doctors
+        qualification.doctor_degree = request.POST.get('degree')
+        qualification.doctor_degree1 = request.POST.get('degree1')
+        qualification.doctor_degree2 = request.POST.get('degree2')
+        qualification.save()
         return redirect('adminpanel')
 
-    return render(request, 'update_doctor.html' ,{'doctors':doctors,'user':user})     
+    return render(request, 'update_doctor.html' ,{'doctors':doctors,'user':user,'qualification':qualification})     
 
 
 @user_passes_test(lambda u: u.is_superuser,login_url='admin_login')
@@ -698,15 +721,15 @@ def delete_doctor(request,id,user_id):
 
 
 
-def sample(request):
-    return render(request, 'sample.html')
+# def sample(request):
+#     return render(request, 'sample.html')
 
 
-def addmove(request):
-    text = request.POST.getlist('det_ails[]')
-    for texts in text:
-        print(texts)
-    return redirect('/')
+# def addmove(request):
+#     text = request.POST.getlist('det_ails[]')
+#     for texts in text:
+#         print(texts)
+#     return redirect('/')
 
 
 

@@ -99,7 +99,7 @@
 			display: inline-block;
 			cursor: pointer;
             color: #fff;
-            box-shadow: 0 0 40px 40px #4cbf12 inset, 0 0 0 0 #4cbf12;
+            box-shadow: 0 0 40px 40px #0bd2ff inset, 0 0 0 0 #4cbf12;
             -webkit-transition: all 150ms ease-in-out;
             transition: all 150ms ease-in-out;
 		}
@@ -239,7 +239,7 @@
 													<div class="">
 														<div class="profile-img d-flex p-2 bd-highlight ">
 															<img id="blah" src="{{doctors.imageURL}}"
-																alt="your image" style="width:100px;height:100px;"/>
+																style="width:100px;height:100px;"/>
 															<!-- leftbox -->
 														<div class="box-2">
 															<div class="result" ></div>
@@ -250,7 +250,7 @@
 															<img id="cropped" class="cropped" src="" alt="">
 														</div>
 														</div>
-														<input id="imageBaseData" class="hidden" name="image64data" type="hidden" required = True type="text">
+														<input id="imageBaseData" class="hidden" name="image64data" type="hidden"  type="text">
 														<div class="upload-img">
 															<div class="change-photo-btn">
 																<span><i class="fa fa-upload"></i> Upload Photo</span>
@@ -400,30 +400,27 @@
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
 															<label>Degree</label>
-															<input name="degree" type="text" class="form-control"
+															<input name="degree" type="text" value="{{qualification.doctor_degree}}" class="form-control"
 																required>
 														</div>
 													</div>
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
-															<label>College/Institute</label>
-															<input type="text" name="college" class="form-control">
+															<label>Degree</label>
+															<input name="degree1" type="text" value="{{qualification.doctor_degree1}}" class="form-control">
 														</div>
 													</div>
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
-															<label>Year of Completion</label>
-															<input type="text" name="year" class="form-control">
+															<label>Degree</label>
+															<input type="text" name="degree2" value="{{qualification.doctor_degree2}}" class="form-control">
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="add-more">
-										<a href="javascript:void(0);" class="add-education"><i
-												class="fa fa-plus-circle"></i> Add More</a>
-									</div>
+									
 								</div>
 							</div>
 							<!-- /Education -->
