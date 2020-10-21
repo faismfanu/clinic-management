@@ -128,6 +128,8 @@ def signup(request):
 def guest_login(request,id):
      doctor=Doctor()
      doctor = Doctor.objects.get(id=id)
+     if request.user.is_authenticated:
+        return redirect(index)
      if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -326,15 +328,21 @@ def booking_save(request,id):
         print(patient) 
         doctor = Doctor.objects.get(id=id)
         print(doctor)
-        doctor_patient, created = Doctor_patient.objects.get_or_create(doctor=doctor, patient=patient)
-        times.patient_id = patient 
-        times.doctor = doctor
-        times.user_id = patient_name
-        times.date_field = request.POST.get('txtDate')
-        times.time_field = request.POST.get('course')
-        times.status = 0
-        times.save()
-        return redirect('booking_success')
+        date = request.POST['txtDate']
+        time = request.POST['course']
+        if Appointment.objects.filter(doctor=id,date_field=date,time_field=time,status=0):
+             messages.info(request, 'This time slot already booked please try another one')
+             return redirect("booking",doctor.id)
+        else:     
+            doctor_patient, created = Doctor_patient.objects.get_or_create(doctor=doctor, patient=patient)
+            times.patient_id = patient 
+            times.doctor = doctor
+            times.user_id = patient_name
+            times.date_field = request.POST.get('txtDate')
+            times.time_field = request.POST.get('course')
+            times.status = 0
+            times.save()
+            return redirect('booking_success')
      else:
         return render(request,'booking.html')
 

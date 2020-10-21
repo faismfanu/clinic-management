@@ -34,12 +34,12 @@
 											<img src="{{doctor.imageURL}}" alt="User Image">
 										</a>
 										<div class="booking-info">
-											<h2><a href="{% url 'doctor_profile' doctor.id %}">{{doctor.doctor_name}}</a></h2>
+											<h3><a href="{% url 'doctor_profile' doctor.id %}">{{doctor.doctor_first_name}} {{doctor.doctor_last_name}}</a></h3>
 											<p class="text-muted mb-0"><i class="fas fa-hospital"></i>{{doctor.doctor_qualification}} - {{doctor.doctor_services}}</p>
 											<form action="{% url 'booking_save' doctor.id %}" method="POST">
 												{% csrf_token %}	
 											<div class="form-group">
-												<label for="rank" class="cols-sm-2 control-label pt-3">Please Select your Date</label>
+												<label for="rank" class="cols-sm-2 control-label pt-3">Please Select your Booking  Date</label>
 												 <div class="cols-sm-10">
 												  <div class="input-group">
 												   
@@ -78,6 +78,9 @@
 									</div>
 								</div>
 							</div>
+							{% for message in messages %}
+									<h4 style ='color: red;'>{{message}}</h4>
+							{% endfor %}
 							{% if block_user %}
 							<!-- Submit Section -->
 							<div class="submit-section proceed-btn text-right pr-5">

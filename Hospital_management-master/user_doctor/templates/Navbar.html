@@ -67,17 +67,17 @@
 							</a>
 						</div>
 						<ul class="main-nav">
-							<li class="active">
-								<a href="{%url 'index'%}">Home</a>
-							</li>
+							
 							<li class="login-link">
 								{% if user.is_authenticated and user.is_staff == 1 %}
+								<a href="{%url 'index' %}">Home</a>
 								<a href="{%url 'user_account' %}">My Account</a>
 								<a href="{%url 'logout'%}">Logout</a>
 								{% elif  user.is_authenticated and user.is_staff == 0 %}
 								<a href="{%url 'doctor_appointment' %}">My Account</a>
 								<a href="{%url 'logout'%}">Logout</a>
 								{% else %}
+								<a href="{%url 'index' %}">Home</a>
 								<a href="{% url 'login' %}">Login </a>
 								<a href="{% url 'signup' %}">Signup</a>
 								{% endif %}
@@ -94,7 +94,7 @@
 								<p class="contact-info-header"> +9048419922</p>
 							</div>
 						</li>
-						{% if user.is_authenticated and user.is_staff == 1 and usser.is_superuser == 0 %}
+						{% if user.is_authenticated and user.is_staff == 1 and user.is_superuser == 0 %}
 						<ul class="main-nav">
 							<li class="has-submenu">
                                 <a >{{user.username}}<i class="fas fa-chevron-down"></i></a>
