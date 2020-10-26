@@ -57,11 +57,11 @@
                                     <tr>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img
+                                                <a href="{% url 'admin_doctor_profile' doctor.id%}" class="avatar avatar-sm mr-2"><img
                                                         class="avatar-img "
                                                         src="{{doctor.imageURL}} "
                                                         ></a>
-                                                <a href="profile.html">{{doctor.user_id.first_name}} {{doctor.user_id.last_name}}</a>
+                                                <a href="{% url 'admin_doctor_profile' doctor.id%}">{{doctor.user_id.first_name}} {{doctor.user_id.last_name}}</a>
                                             </h2>
                                         </td>
                                         <td>{{doctor.doctor_services}}</td>

@@ -120,7 +120,7 @@
                                                     </tr>
                                                 </thead>
                                                 {% for time in times %}
-                                                {% if time.status == 0 %}
+                                                {% if time.status == 0 or time.status == 3  %}
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -133,19 +133,30 @@
                                                         <td> <span class="d-block text-info">{{time.time_field}}</span>
                                                         </td>
                                                         <td></td>
-                                                        <td><span
-                                                                class="badge badge-pill bg-success-light">Confrmed<span>
+                                                        <td>
+                                                            {% if time.status == 0 %}
+                                                            <span class="badge badge-pill bg-success-light">Confrmed</span>
+                                                            {% elif time.status == 3 %}
+                                                            <span class="badge badge-pill bg-danger-light">Rejected</span>
+                                                            {% endif %}
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="table-action">
 
                                                             </div>
+                                                            {% if time.status == 0 %} 
                                                             <form action="{% url 'cancel_booking' time.id%}"
                                                                 method="POST" onsubmit="window.mytest()">
                                                                 {%csrf_token%}
                                                                 <input type="submit" value="Cancel Booking"
                                                                     STYLE="color: #FFFFFF; font-family: Verdana; font-weight: bold; font-size: 15   px; background-color: red;">
                                                             </form>
+                                                            {% elif time.status == 3 %}
+                                                            <a href="{% url 'reschedule' time.id%}"
+															class="btn btn-sm bg-info-light">
+															<i class="fas fa-clock"></i> Reshedule your time
+														</a> 
+                                                            {% endif %}
                                                         </td>
                                                     </tr>
 

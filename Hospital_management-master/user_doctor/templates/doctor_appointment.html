@@ -99,6 +99,10 @@
 											class="med-records">Upcoming Appointments</span></a>
 								</li>
 								<li class="nav-item">
+									<a class="nav-link " href="#pat_rejected" data-toggle="tab">Rejected 
+										Appointments</a>
+								</li>
+								<li class="nav-item">
 									<a class="nav-link " href="#pat_cancelbooking" data-toggle="tab">Consulted
 										Appointments</a>
 								</li>
@@ -136,7 +140,7 @@
 																<a href="" class="avatar avatar-sm mr-2"><img
 																		class="avatar-img rounded-circle"
 																		src="{{time.patient_id.imageURL}}"></a>
-																<a>{{time.patient_id.patient_full_name}}</a>
+																<a href="{%url 'patient_profile_sample' time.patient_id.user.id time.patient_id.id doctor.id %}">{{time.patient_id.patient_full_name}}</a>
 															</h2>
 														</td>
 														<td>{{time.date_field}}</td>
@@ -147,9 +151,13 @@
 														<td class="text-right">
 															<div class="table-action">
 																<a href="{% url 'doctor_priscription' time.patient_id.id time.id %}"
-																	class="btn btn-sm bg-success-light">
-																	<i class="far fa-eye"></i> Consult the patient
-																</a>
+																class="btn btn-sm bg-success-light">
+																<i class="far fa-eye"></i> Consult
+															</a>
+															<a href="{% url 'reject' time.id%}"
+															class="btn btn-sm bg-danger-light">
+															<i class="far fa-trash-alt"></i> Reject
+														</a>
 															</div>
 														</td>
 													</tr>
@@ -188,7 +196,7 @@
 																		class="avatar-img rounded-circle"
 																		src="{{time.patient_id.imageURL}}"
 																		></a>
-																<a href="">{{time.patient_id.patient_full_name}}</a>
+																<a href="{%url 'patient_profile_sample' time.patient_id.user.id time.patient_id.id doctor.id %}">{{time.patient_id.patient_full_name}}</a>
 															</h2>
 														</td>
 														<td>{{time.date_field}}</span></td>
@@ -198,9 +206,13 @@
 														<td class="text-center">9048419922</td>
 														<td class="text-right">
 															<div class="table-action">
-																<a href="" class="btn btn-sm bg-success-light">
+																<a  class="btn btn-sm bg-success-light">
 																	<i class="far fa-eye"></i> Upcoming
 																</a>
+																<a href="{% url 'reject' time.id%}"
+																class="btn btn-sm bg-danger-light">
+																<i class="far fa-trash-alt"></i> Reject
+															</a>
 															</div>
 														</td>
 													</tr>
@@ -263,7 +275,7 @@
 																		class="avatar-img rounded-circle"
 																		src="{{time.patient_id.imageURL}}"
 																		></a>
-																<a href="">{{time.patient_id.patient_full_name}}</a>
+																<a href="{%url 'patient_profile_sample' time.patient_id.user.id time.patient_id.id doctor.id %}">{{time.patient_id.patient_full_name}}</a>
 															</h2>
 														</td>
 														<td>{{time.date_field}}</span></td>
@@ -274,6 +286,57 @@
 														<td class="text-right">
 															<div class="table-action">
 																<span class="badge badge-pill bg-info-light">Consulted
+																	Patients<span>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+												{% endif %}
+												{% endfor %}
+
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Canel Booking -->
+							<!-- Cancel Booking -->
+							<div class="tab-pane fade" id="pat_rejected">
+								<div class="card card-table mb-0">
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-hover table-center mb-0">
+												<thead>
+													<tr>
+														<th>Patient Name</th>
+														<th>Appt Date</th>
+														<th>Time</th>
+														<th>Consulted date</th>
+														<th>Phone</th>
+														<th>Status</th>
+													</tr>
+												</thead>
+												{% for time in times %}
+												{% if time.status == 3 %}
+												<tbody>
+													<tr>
+														<td>
+															<h2 class="table-avatar">
+																<a href="" class="avatar avatar-sm mr-2"><img
+																		class="avatar-img rounded-circle"
+																		src="{{time.patient_id.imageURL}}"
+																		></a>
+																<a href="{%url 'patient_profile_sample' time.patient_id.user.id time.patient_id.id doctor.id %}">{{time.patient_id.patient_full_name}}</a>
+															</h2>
+														</td>
+														<td>{{time.date_field}}</span></td>
+														<td><span class="d-block text-info">{{time.time_field}}</span>
+														</td>
+														<td>{{time.created_at}}</td>
+														<td class="text-center">9048419922</td>
+														<td class="text-right">
+															<div class="table-action">
+																<span class="badge badge-pill bg-danger-light">Rejected
 																	Patients<span>
 															</div>
 														</td>

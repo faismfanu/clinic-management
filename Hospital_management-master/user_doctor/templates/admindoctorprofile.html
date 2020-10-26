@@ -1,0 +1,62 @@
+{% extends "adminnavbar.html" %}
+{%block content%}
+{%load static%}
+
+<!-- Page Content -->
+<div class="content" style="margin-top: 50px;">
+    <div class="container">
+
+        <!-- Doctor Widget -->
+        <div class="card">
+            <div class="card-body">
+                <div class="doctor-widget">
+                    <div class="doc-info-left">
+                        <div class="doctor-img">
+                            <img src="{{doctor.imageURL}}" class="img-fluid" alt="User Image">
+                        </div>
+                        <div class="doc-info-cont">
+                            <h4 class="doc-name">{{doctor.user_id.first_name}} {{doctor.user_id.last_name}}</h4>
+                            <p class="doc-speciality">{{doctor.doctor_qualification}} - {{doctor.doctor_Field}}</p>
+                            <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{doctor.doctor_city}},
+                                {{doctor.doctor_state}} - <a href="https://www.google.com/maps/">Get Directions</a></p>
+                            <p class="doc-department"><img
+                                    src="{%static 'assets/img/specialities/specialities-05.png'%}" class="img-fluid"
+                                    alt="Speciality">Dentist</p>
+
+
+                            <div class="clinic-services">
+                                <span>{{doctor.doctor_services}}</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doc-info-right">
+                        <div class="clini-infos">
+                            <ul>
+                                <li><i class="far fa-envelope">   {{doctor.doctor_email}}</i></li>
+                                <li><i class="fas fa-phone"></i> {{doctor.doctor_phone}}</li>
+                                <li><i class="fas fa-birthday-cake"></i> {{doctor.doctor_dob}}</li>
+                                <li><i class="far fa-user"></i> {{doctor.doctor_gender }} </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="clinic-booking">
+                            <a class="btn btn-primary" href="{% url 'adminpanel'%}">Back to the admin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Doctor Widget -->
+
+
+
+    </div>
+</div>
+<!-- /Page Content -->
+
+
+
+
+
+{%endblock%}

@@ -55,6 +55,7 @@ def login(request):
 
 def signup(request):
     patients = Patient()
+    
     if request.method == 'POST':
         username = request.POST['username']
         number = request.POST['number']
@@ -155,9 +156,8 @@ def guest_login(request,id):
 def mobail(request):
     if request.method=='POST':
         number = request.POST['number']
-        user=User.objects.get(last_name=number)
-        print(user)
-        if user:
+        if User.objects.filter(last_name=number).exists():
+            user=User.objects.get(last_name=number)
             username = user.username
             password=user.first_name
             request.session['username'] =  username
@@ -361,6 +361,14 @@ def cancel_booking(request,id):
     times.save()       
     return redirect('user_account')
 
+@staff_member_required(login_url='/')
+def reschedule(request,id):
+    #times = Appointment()
+    times = Appointment.objects.get(id=id)
+    times.status = 4
+    print('status:',times.status )
+    times.save()       
+    return redirect('booking',times.doctor.id)
 
 
 def logout(request):
@@ -549,6 +557,17 @@ def patientsample(request):
 
 
 @login_required(login_url='doctorlogin')
+def reject(request,id):
+    #times = Appointment()
+    times = Appointment.objects.get(id=id)
+    times.status = 3
+    print('status:',times.status )
+    times.save()       
+    return redirect('doctor_appointment')
+
+
+
+@login_required(login_url='doctorlogin')
 def patient_profile_sample(request,id,pat_id,doc_id):
     patient = Patient.objects.get(id=pat_id)
     doctor = Doctor.objects.get(id=doc_id)
@@ -714,6 +733,14 @@ def update_doctor(request,id,user_id):
         return redirect('adminpanel')
 
     return render(request, 'update_doctor.html' ,{'doctors':doctors,'user':user,'qualification':qualification})     
+
+
+@user_passes_test(lambda u: u.is_superuser,login_url='admin_login')
+def admin_doctor_profile(request,id):
+    doctor=Doctor()
+    doctor = Doctor.objects.get(id=id)
+    return render(request, 'admindoctorprofile.html',{'doctor':doctor})
+
 
 
 @user_passes_test(lambda u: u.is_superuser,login_url='admin_login')
